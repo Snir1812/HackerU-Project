@@ -6,7 +6,7 @@ namespace API.Models.DTO
 	{
 		public int ID { get; set; }
 		public int UserID { get; set; }
-		public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+		public DateTime OrderDate { get; set; }
 		public OrderStatus OrderStatus { get; set; }
 		public decimal TotalPrice { get; set; }
 
