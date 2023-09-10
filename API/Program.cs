@@ -45,6 +45,15 @@ namespace API
 				};
 			});
 
+			builder.Services.AddCors((o) =>
+			{
+				o.AddPolicy("open", b =>
+					b.AllowAnyHeader()
+					.AllowAnyOrigin()
+					.AllowAnyMethod()
+				);
+			});
+
 			var app = builder.Build();
 
 			using (var scope = app.Services.CreateScope())

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+using System.Text.Json.Serialization;
 
 namespace API.Models.DTO
 {
@@ -10,6 +11,7 @@ namespace API.Models.DTO
 		public decimal Price { get; set; }
 		public int StockQuantity { get; set; }
 		public int CategoryID { get; set; }
+		[JsonIgnore]
 		public Category? Category { get; set; }
 		public string ImageUrl { get; set; }
 
