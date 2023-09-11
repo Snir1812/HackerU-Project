@@ -1,6 +1,7 @@
 ﻿using API.Models.DTO;
 using API.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -22,14 +23,20 @@ namespace API.Controllers
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			var items = _productRepo.FindAll().ToList();
+			var items = _productRepo
+				.FindAll()
+				.Include(p => p.Reviews) // Include reviews related to the product
+				.ToList();
 			return Ok(items);
 		}
 
 		[HttpGet("{id:int}")]
 		public IActionResult GetByID(int id)
 		{
-			var result = _productRepo.FindByCondition(u => u.ID == id).FirstOrDefault();
+			var result = _productRepo
+			   .FindByCondition(p => p.ID == id)
+			   .Include(p => p.Reviews) // Include reviews related to the product
+			   .FirstOrDefault();
 
 			if (result == null)
 			{

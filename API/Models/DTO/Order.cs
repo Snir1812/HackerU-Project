@@ -1,4 +1,5 @@
 ﻿using API.Models.Enums;
+using System.Text.Json.Serialization;
 
 namespace API.Models.DTO
 {
@@ -6,7 +7,8 @@ namespace API.Models.DTO
 	{
 		public int ID { get; set; }
 		public int UserID { get; set; }
-        public User? User { get; set; }
+		[JsonIgnore]
+		public User? User { get; set; }
         public DateTime OrderDate { get; set; }
 		public OrderStatus OrderStatus { get; set; }
 		public decimal TotalPrice { get; set; }

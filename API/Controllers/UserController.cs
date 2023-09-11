@@ -1,6 +1,7 @@
 ﻿using API.Models.DTO;
 using API.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -24,14 +25,24 @@ namespace API.Controllers
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			var items = _userRepo.FindAll().ToList();
+			var items = _userRepo
+				.FindAll()
+				.Include(p => p.Orders) // Include orders related to the user
+							.ThenInclude(o => o.OrderItems) // Include order items related to each order
+				.Include(p => p.Reviews) // Include reviews related to the user
+				.ToList();
 			return Ok(items);
 		}
 
 		[HttpGet("{id:int}")]
 		public IActionResult GetByID(int id)
 		{
-			var result = _userRepo.FindByCondition(u => u.ID == id).FirstOrDefault();
+			var result = _userRepo
+				.FindByCondition(u => u.ID == id)
+				.Include(p => p.Orders) // Include orders related to the user
+							.ThenInclude(o => o.OrderItems) // Include order items related to each order
+				.Include(p => p.Reviews) // Include reviews related to the user
+				.FirstOrDefault();
 
 			if (result == null)
 			{

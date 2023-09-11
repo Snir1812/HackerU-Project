@@ -2,6 +2,7 @@
 using API.Models.Enums;
 using API.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -23,14 +24,20 @@ namespace API.Controllers
 		[HttpGet]
 		public IActionResult GetAll()
 		{
-			var items = _orderRepo.FindAll().ToList();
+			var items = _orderRepo
+				.FindAll()
+				.Include(o => o.OrderItems) // Include order items related to the order
+				.ToList();
 			return Ok(items);
 		}
 
 		[HttpGet("{id:int}")]
 		public IActionResult GetByID(int id)
 		{
-			var result = _orderRepo.FindByCondition(u => u.ID == id).FirstOrDefault();
+			var result = _orderRepo
+				.FindByCondition(o => o.ID == id)
+				.Include(o => o.OrderItems) // Include order items related to the order
+				.FirstOrDefault();
 
 			if (result == null)
 			{
