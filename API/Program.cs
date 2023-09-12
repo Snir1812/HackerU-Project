@@ -73,6 +73,7 @@ namespace API
 
 			app.UseAuthorization();
 
+			app.UseCors("open");
 
 			app.MapControllers();
 
