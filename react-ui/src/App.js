@@ -2,6 +2,8 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Header from "./components/header/Header";
 import Protected from "./components/Protected";
 import Login from "./components/login/Login";
+import BackOffice from "./pages/backOffice/BackOffice";
+import ProductList from "./components/sidePanelBackOffice/ObjectLists/ProductList";
 
 function App() {
   return (
@@ -13,10 +15,12 @@ function App() {
           path="/backoffice"
           element={
             <Protected>
-              <div>back office</div>
+              <BackOffice />
             </Protected>
           }
-        ></Route>
+        >
+          <Route path="product" element={<ProductList />} />
+        </Route>
         <Route path="/" element={<div>Home</div>} />
       </Routes>
     </BrowserRouter>

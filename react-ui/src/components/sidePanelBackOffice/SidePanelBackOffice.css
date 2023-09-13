@@ -1,0 +1,13 @@
+.sidePanel {
+  width: 10%;
+  height: 100%;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.item {
+  border: 1px solid black;
+}

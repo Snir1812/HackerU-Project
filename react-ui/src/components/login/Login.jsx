@@ -35,7 +35,7 @@ const Login = () => {
       .catch((ex) => {
         localStorage.setItem("site-token", "");
         setError(ex);
-        //console.error(ex);
+        console.error(ex);
       });
   };
 
