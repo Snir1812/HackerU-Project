@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../../utils/api";
 import "./List.css";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const ProductList = () => {
   const [items, setItems] = useState([]);
@@ -19,9 +20,9 @@ const ProductList = () => {
   return (
     <div className="listPage">
       <h3>Products List</h3>
-      <button as={Link} to="new">
-        Add new product
-      </button>
+      <Link to="new">
+        <button>Add new product</button>
+      </Link>
       <div className="list">
         <div className="itemListUp">ID</div>
         <div className="itemListUp">Product Name</div>
@@ -43,8 +44,12 @@ const ProductList = () => {
             <div className="itemList">{item.stockQuantity}</div>
             <div className="itemList">{item.imageUrl}</div>
             <div className="itemList">
-              <button className="button">Edit</button>
-              <button className="button">Delete</button>
+              <Link to={`edit/${item.id}`}>
+                <button className="button">Edit</button>
+              </Link>
+              <Link to="delete">
+                <button className="button">Delete</button>
+              </Link>
             </div>
           </div>
         ))}

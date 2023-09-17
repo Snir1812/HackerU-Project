@@ -4,6 +4,7 @@ import Protected from "./components/Protected";
 import Login from "./components/login/Login";
 import BackOffice from "./pages/backOffice/BackOffice";
 import ProductList from "./components/sidePanelBackOffice/ObjectLists/ProductList";
+import ProductForm from "./components/ProductForm";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           }
         >
           <Route path="product" element={<ProductList />} />
+          <Route path="product/new" element={<ProductForm />} />
+          <Route path="product/edit/:id" element={<ProductForm />} />
         </Route>
         <Route path="/" element={<div>Home</div>} />
       </Routes>
