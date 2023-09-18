@@ -2,10 +2,21 @@ import React, { useEffect, useState } from "react";
 import api from "../../../utils/api";
 import "./List.css";
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 const ProductList = () => {
   const [items, setItems] = useState([]);
+
+  const handelDelete = (id) => {
+    if (!window.confirm("Are you sure ?")) {
+      return;
+    }
+    api
+      .delete(`Product/${id}`)
+      .then(() => {
+        setItems(items.filter((i) => i.id !== id));
+      })
+      .catch((ex) => console.log(ex));
+  };
 
   useEffect(() => {
     api
@@ -47,9 +58,9 @@ const ProductList = () => {
               <Link to={`edit/${item.id}`}>
                 <button className="button">Edit</button>
               </Link>
-              <Link to="delete">
-                <button className="button">Delete</button>
-              </Link>
+              <button className="button" onClick={() => handelDelete(item.id)}>
+                Delete
+              </button>
             </div>
           </div>
         ))}

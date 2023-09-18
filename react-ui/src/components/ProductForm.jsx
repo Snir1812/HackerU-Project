@@ -1,24 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import api from "../utils/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ProductForm = () => {
-  const [id, setId] = useState("");
+  const { id } = useParams();
+  //const [id, setId] = useState("");
   const [productName, setProductName] = useState("");
   const [categoryID, setCategoryID] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
-  const [imageUrl, setImageURL] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+      api
+        .get(`product/${id}`)
+        .then((res) => {
+          const item = res.data;
+
+          setProductName(item.productName);
+          setCategoryID(item.categoryID);
+          setDescription(item.description);
+          setPrice(item.price);
+          setStockQuantity(item.stockQuantity);
+          setImageUrl(item.imageUrl);
+        })
+        .catch((ex) => console.log(ex));
+    }
+  }, [id]);
+
+  const handelCancel = () => {
+    navigate("../product");
+  };
 
   const handelSubmit = (e) => {
     e.preventDefault();
 
     const newItem = {
-      id: 0,
+      id: id || 0,
       productName,
       description,
       price,
@@ -27,10 +50,11 @@ const ProductForm = () => {
       imageUrl,
     };
 
+    const verb = id ? "put" : "post";
+
     console.log(newItem);
 
-    api
-      .post("product", newItem)
+    api[verb]("Product", newItem)
       .then((res) => {
         console.log(res.data);
         navigate("../product");
@@ -93,14 +117,14 @@ const ProductForm = () => {
             type="text"
             required
             value={imageUrl}
-            onChange={(e) => setImageURL(e.target.value)}
+            onChange={(e) => setImageUrl(e.target.value)}
           />
         </div>
       </div>
       <button type="submit" onClick={handelSubmit}>
         Save
       </button>
-      <button>Cancel</button>
+      <button onClick={handelCancel}>Cancel</button>
     </>
   );
 };
