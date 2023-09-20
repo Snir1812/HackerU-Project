@@ -112,9 +112,9 @@ namespace API.Controllers
 		}
 
 		[HttpDelete("{id:int}")]
-		public IActionResult Delete(int id, string userName, string password)
+		public IActionResult Delete(int id/*, string userName, string password*/)
 		{
-			if (id == null || userName == null || password == null)
+			if (id == null /*|| userName == null || password == null*/)
 			{
 				return BadRequest();
 			}
@@ -128,13 +128,14 @@ namespace API.Controllers
 
 			var user = _userRepo.FindByCondition(u => u.ID == id).FirstOrDefault();
 
-			if (user.UserName == userName && user.Password == password)
-			{
-				_userRepo.Delete(user);
-				return NoContent();
-			}
+			//if (user.UserName == userName && user.Password == password)
+			//{
+			//	_userRepo.Delete(user);
+			//	return NoContent();
+			//}
 
-			return BadRequest();
+			_userRepo.Delete(user);
+			return NoContent();
 		}
 	}
 }

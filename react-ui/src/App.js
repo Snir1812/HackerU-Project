@@ -3,8 +3,10 @@ import Header from "./components/header/Header";
 import Protected from "./components/Protected";
 import Login from "./components/login/Login";
 import BackOffice from "./pages/backOffice/BackOffice";
-import ProductList from "./components/sidePanelBackOffice/ObjectLists/ProductList";
-import ProductForm from "./components/ProductForm";
+import ProductList from "./components/sidePanelBackOffice/objectsList/ProductList";
+import ProductForm from "./components/sidePanelBackOffice/objectsForm/ProductForm";
+import UserList from "./components/sidePanelBackOffice/objectsList/UserList";
+import UserForm from "./components/sidePanelBackOffice/objectsForm/UserForm";
 
 function App() {
   return (
@@ -23,6 +25,9 @@ function App() {
           <Route path="product" element={<ProductList />} />
           <Route path="product/new" element={<ProductForm />} />
           <Route path="product/edit/:id" element={<ProductForm />} />
+          <Route path="user" element={<UserList />} />
+          <Route path="user/new" element={<UserForm />} />
+          <Route path="user/edit/:id" element={<UserForm />} />
         </Route>
         <Route path="/" element={<div>Home</div>} />
       </Routes>
