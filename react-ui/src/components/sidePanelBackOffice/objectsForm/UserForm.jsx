@@ -13,6 +13,7 @@ const UserForm = () => {
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [apiError, setApiError] = useState(""); // Add API error state
 
   const navigate = useNavigate();
 
@@ -31,7 +32,9 @@ const UserForm = () => {
           setAddress(item.address);
           setPhoneNumber(item.phoneNumber);
         })
-        .catch((ex) => console.log(ex));
+        .catch((ex) => {
+          setApiError(ex.response ? ex.response.data : "An error occurred");
+        });
     }
   }, [id]);
 
@@ -62,7 +65,9 @@ const UserForm = () => {
         console.log(res.data);
         navigate("../user");
       })
-      .catch((ex) => console.log(ex));
+      .catch((ex) => {
+        setApiError(ex.response ? ex.response.data : "An error occurred");
+      });
   };
 
   return (
@@ -132,7 +137,9 @@ const UserForm = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
-      </div>
+      </div>{" "}
+      {apiError && <p className="error">{apiError}</p>}{" "}
+      {/* Display API error message */}
       <button type="submit" onClick={handelSubmit}>
         Save
       </button>

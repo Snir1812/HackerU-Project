@@ -7,6 +7,12 @@ import ProductList from "./components/sidePanelBackOffice/objectsList/ProductLis
 import ProductForm from "./components/sidePanelBackOffice/objectsForm/ProductForm";
 import UserList from "./components/sidePanelBackOffice/objectsList/UserList";
 import UserForm from "./components/sidePanelBackOffice/objectsForm/UserForm";
+import ReviewList from "./components/sidePanelBackOffice/objectsList/ReviewList";
+import ReviewForm from "./components/sidePanelBackOffice/objectsForm/ReviewForm";
+import CategoryList from "./components/sidePanelBackOffice/objectsList/CategoryList";
+import CategoryForm from "./components/sidePanelBackOffice/objectsForm/CategoryForm";
+import OrderList from "./components/sidePanelBackOffice/objectsList/OrderList";
+import OrderForm from "./components/sidePanelBackOffice/objectsForm/OrderForm";
 
 function App() {
   return (
@@ -28,6 +34,15 @@ function App() {
           <Route path="user" element={<UserList />} />
           <Route path="user/new" element={<UserForm />} />
           <Route path="user/edit/:id" element={<UserForm />} />
+          <Route path="review" element={<ReviewList />} />
+          <Route path="review/new" element={<ReviewForm />} />
+          <Route path="review/edit/:id" element={<ReviewForm />} />
+          <Route path="category" element={<CategoryList />} />
+          <Route path="category/new" element={<CategoryForm />} />
+          <Route path="category/edit/:id" element={<CategoryForm />} />
+          <Route path="order" element={<OrderList />} />
+          <Route path="order/new" element={<OrderForm />} />
+          <Route path="order/edit/:id" element={<OrderForm />} />
         </Route>
         <Route path="/" element={<div>Home</div>} />
       </Routes>

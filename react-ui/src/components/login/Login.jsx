@@ -7,10 +7,10 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [apiError, setApiError] = useState(""); // Add API error state
   const nav = useNavigate();
 
-  console.log(error);
+  console.log(apiError);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,13 +29,12 @@ const Login = () => {
           nav("/backoffice");
         } else {
           localStorage.setItem("site-token", "");
-          setError(`could not login ${result.status}`);
+          setApiError(`could not login ${result.status}`);
         }
       })
       .catch((ex) => {
         localStorage.setItem("site-token", "");
-        setError(ex);
-        console.error(ex);
+        setApiError(ex.response ? ex.response.data : "An error occurred");
       });
   };
 
@@ -56,9 +55,10 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <br />
+        {apiError && <p className="error">{apiError}</p>}
+        {/* Display API error message */}
         <button type="submit">Login</button>
       </form>
-      {error !== "" ?? <h3>Error during login</h3>}
     </>
   );
 };

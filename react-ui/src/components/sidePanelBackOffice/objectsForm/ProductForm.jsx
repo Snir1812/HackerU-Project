@@ -12,6 +12,7 @@ const ProductForm = () => {
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [apiError, setApiError] = useState(""); // Add API error state
 
   const navigate = useNavigate();
 
@@ -29,7 +30,9 @@ const ProductForm = () => {
           setStockQuantity(item.stockQuantity);
           setImageUrl(item.imageUrl);
         })
-        .catch((ex) => console.log(ex));
+        .catch((ex) => {
+          setApiError(ex.response ? ex.response.data : "An error occurred");
+        });
     }
   }, [id]);
 
@@ -59,7 +62,9 @@ const ProductForm = () => {
         console.log(res.data);
         navigate("../product");
       })
-      .catch((ex) => console.log(ex));
+      .catch((ex) => {
+        setApiError(ex.response ? ex.response.data : "An error occurred");
+      });
   };
 
   return (
@@ -120,7 +125,9 @@ const ProductForm = () => {
             onChange={(e) => setImageUrl(e.target.value)}
           />
         </div>
-      </div>
+      </div>{" "}
+      {apiError && <p className="error">{apiError}</p>}{" "}
+      {/* Display API error message */}
       <button type="submit" onClick={handelSubmit}>
         Save
       </button>

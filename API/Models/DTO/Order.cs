@@ -9,8 +9,8 @@ namespace API.Models.DTO
 		public int UserID { get; set; }
 		[JsonIgnore]
 		public User? User { get; set; }
-        public DateTime OrderDate { get; set; }
-		public OrderStatus OrderStatus { get; set; }
+		public DateTime OrderDate { get; set; }
+		public OrderStatus OrderStatus { get; set; } = OrderStatus.Ordered;
 		public decimal TotalPrice { get; set; }
 
 		// Navigation property for Order Items

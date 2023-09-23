@@ -61,7 +61,7 @@ namespace API.Controllers
 				return BadRequest("The user id you selected is not found");
 			}
 
-			order.OrderStatus = OrderStatus.Ordered;
+			//order.OrderStatus = OrderStatus.Ordered;
 			order.OrderDate = DateTime.UtcNow;
 
 			var result = _orderRepo.Create(order);
