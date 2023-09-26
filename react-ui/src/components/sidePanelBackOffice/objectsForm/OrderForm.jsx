@@ -40,7 +40,7 @@ const OrderForm = () => {
     const newItem = {
       id: id || 0,
       userID,
-      orderStatus,
+      orderStatus: parseFloat(orderStatus), // Parse orderStatus as a float
       totalPrice,
     };
 
@@ -58,9 +58,16 @@ const OrderForm = () => {
       });
   };
 
+  // Options for the order status dropdown
+  const orderStatusOptions = [
+    { value: "1", label: "Ordered" },
+    { value: "2", label: "Out For Delivery" },
+    { value: "3", label: "Delivered" },
+  ];
+
   return (
     <>
-      <h2>Product Form</h2>
+      <h2>Order Form</h2>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">User ID</div>
@@ -73,12 +80,16 @@ const OrderForm = () => {
         </div>
         <div className="formItem">
           <div className="formLabel">Order Status</div>
-          <input
-            type="number"
-            required
+          <select
             value={orderStatus}
             onChange={(e) => setOrderStatus(e.target.value)}
-          />
+          >
+            {orderStatusOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="formItem">
           <div className="formLabel">Total Price</div>

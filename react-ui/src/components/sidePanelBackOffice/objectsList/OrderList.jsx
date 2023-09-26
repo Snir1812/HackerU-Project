@@ -7,11 +7,7 @@ const OrderList = () => {
   const [items, setItems] = useState([]);
 
   const handelDelete = (id) => {
-    if (
-      !window.confirm(
-        "Are you sure ? You will also delete all products that use this category "
-      )
-    ) {
+    if (!window.confirm("Are you sure ? ")) {
       return;
     }
     api
@@ -41,6 +37,20 @@ const OrderList = () => {
     return `${year}-${month}-${day}`;
   };
 
+  // Function to map orderStatus values to their respective labels
+  const mapOrderStatus = (statusValue) => {
+    switch (statusValue) {
+      case 1:
+        return "Ordered";
+      case 2:
+        return "Out For Delivery";
+      case 3:
+        return "Delivered";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="listPage">
       <h3>Products List</h3>
@@ -62,7 +72,7 @@ const OrderList = () => {
             <div className="itemList">{item.userID}</div>
             <div className="itemList">{formatDate(item.orderDate)}</div>
             {/* Format the date */}
-            <div className="itemList">{item.orderStatus}</div>
+            <div className="itemList">{mapOrderStatus(item.orderStatus)}</div>
             <div className="itemList">{item.totalPrice}</div>
             <div className="itemList">
               <Link to={`edit/${item.id}`}>
