@@ -13,7 +13,7 @@ const ProductList = () => {
     api
       .delete(`Product/${id}`)
       .then(() => {
-        setItems(items.filter((i) => i.id !== id));
+        setItems(items.filter((i) => i.product.id !== id));
       })
       .catch((ex) => console.log(ex));
   };
@@ -47,18 +47,25 @@ const ProductList = () => {
       <div>
         {items.map((item) => (
           <div className="list">
-            <div className="itemList">{item.id}</div>
-            <div className="itemList">{item.productName}</div>
-            <div className="itemList">{item.categoryID}</div>
-            <div className="itemList">{item.description}</div>
-            <div className="itemList">{item.price}</div>
-            <div className="itemList">{item.stockQuantity}</div>
-            <div className="itemList">{item.imageUrl}</div>
+            <div className="itemList">{item.product.id}</div>
+            <div className="itemList">{item.product.productName}</div>
+            <div className="itemList">{item.product.categoryID}</div>
+            <div className="itemList">{item.product.description}</div>
+            <div className="itemList">{item.product.price}</div>
+            <div className="itemList">{item.product.stockQuantity}</div>
+            <img
+              src={`data:image/jpeg;base64,${item.imageBase64}`} // Adjust the format accordingly
+              alt={item.productName}
+              className="productImage"
+            />
             <div className="itemList">
-              <Link to={`edit/${item.id}`}>
+              <Link to={`edit/${item.product.id}`}>
                 <button className="button">Edit</button>
               </Link>
-              <button className="button" onClick={() => handelDelete(item.id)}>
+              <button
+                className="button"
+                onClick={() => handelDelete(item.product.id)}
+              >
                 Delete
               </button>
             </div>

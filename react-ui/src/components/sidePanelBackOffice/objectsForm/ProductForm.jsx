@@ -11,7 +11,7 @@ const ProductForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState(null);
   const [apiError, setApiError] = useState(""); // Add API error state
 
   const navigate = useNavigate();
@@ -23,12 +23,12 @@ const ProductForm = () => {
         .then((res) => {
           const item = res.data;
 
-          setProductName(item.productName);
-          setCategoryID(item.categoryID);
-          setDescription(item.description);
-          setPrice(item.price);
-          setStockQuantity(item.stockQuantity);
-          setImageUrl(item.imageUrl);
+          setProductName(item.product.productName);
+          setCategoryID(item.product.categoryID);
+          setDescription(item.product.description);
+          setPrice(item.product.price);
+          setStockQuantity(item.product.stockQuantity);
+          setImageFile(item.imageBase64);
         })
         .catch((ex) => {
           setApiError(ex.response ? ex.response.data : "An error occurred");
@@ -43,21 +43,19 @@ const ProductForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    const newItem = {
-      id: id || 0,
-      productName,
-      description,
-      price,
-      stockQuantity,
-      categoryID,
-      imageUrl,
-    };
+    const formData = new FormData();
+
+    formData.append("id", id || 0);
+    formData.append("productName", productName);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("stockQuantity", stockQuantity);
+    formData.append("categoryID", categoryID);
+    formData.append("imageFile", imageFile);
 
     const verb = id ? "put" : "post";
 
-    console.log(newItem);
-
-    api[verb]("Product", newItem)
+    api[verb]("Product", formData)
       .then((res) => {
         console.log(res.data);
         navigate("../product");
@@ -117,16 +115,27 @@ const ProductForm = () => {
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Image URL</div>
-          <input
-            type="text"
-            required
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
+          <div className="formLabel">Image</div>
+          {!imageFile && (
+            <input
+              type="file"
+              accept=".jpg, .jpeg, .png, .gif"
+              onChange={(e) => {
+                setImageFile(e.target.files[0]);
+              }}
+            />
+          )}
+
+          {imageFile && (
+            <img
+              src={`data:image/jpeg;base64,${imageFile}`} // Adjust the format accordingly
+              alt={productName}
+              className="productImage"
+            />
+          )}
         </div>
-      </div>{" "}
-      {apiError && <p className="error">{apiError}</p>}{" "}
+      </div>
+      {apiError && <p className="error">{apiError}</p>}
       {/* Display API error message */}
       <button type="submit" onClick={handelSubmit}>
         Save

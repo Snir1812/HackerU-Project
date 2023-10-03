@@ -81,7 +81,7 @@ namespace API.Migrations
                         new
                         {
                             ID = 1,
-                            OrderDate = new DateTime(2023, 9, 1, 14, 33, 7, 664, DateTimeKind.Utc).AddTicks(9307),
+                            OrderDate = new DateTime(2023, 9, 28, 11, 3, 24, 866, DateTimeKind.Utc).AddTicks(7147),
                             OrderStatus = 1,
                             TotalPrice = 20m,
                             UserID = 1
@@ -112,6 +112,8 @@ namespace API.Migrations
 
                     b.HasIndex("OrderID");
 
+                    b.HasIndex("ProductID");
+
                     b.ToTable("OrderItem");
 
                     b.HasData(
@@ -141,7 +143,6 @@ namespace API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -211,7 +212,7 @@ namespace API.Migrations
                             ID = 1,
                             ProductID = 1,
                             Rating = 10,
-                            ReviewDate = new DateTime(2023, 9, 1, 14, 33, 7, 664, DateTimeKind.Utc).AddTicks(9286),
+                            ReviewDate = new DateTime(2023, 9, 28, 11, 3, 24, 866, DateTimeKind.Utc).AddTicks(7125),
                             ReviewText = "Lorem",
                             UserID = 1
                         });
@@ -277,20 +278,32 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.DTO.Order", b =>
                 {
-                    b.HasOne("API.Models.DTO.User", null)
+                    b.HasOne("API.Models.DTO.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Models.DTO.OrderItem", b =>
                 {
-                    b.HasOne("API.Models.DTO.Order", null)
+                    b.HasOne("API.Models.DTO.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("API.Models.DTO.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("API.Models.DTO.Product", b =>
@@ -306,17 +319,21 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.DTO.Review", b =>
                 {
-                    b.HasOne("API.Models.DTO.Product", null)
+                    b.HasOne("API.Models.DTO.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("API.Models.DTO.User", null)
+                    b.HasOne("API.Models.DTO.User", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Models.DTO.Category", b =>
