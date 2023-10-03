@@ -36,7 +36,7 @@ namespace API.Controllers
 			).FirstOrDefault();
 			if (user == null)
 			{
-				return Unauthorized();
+				return Unauthorized("The username or password is not currect");
 			}
 
 			var key = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
@@ -47,7 +47,8 @@ namespace API.Controllers
 
 			var claims = new List<Claim>()
 			{
-				new Claim("sub",user.ID.ToString())
+				new Claim("sub",user.ID.ToString()),
+				new Claim("type",user.Type.ToString())
 			};
 
 			string validAudience = _config["Authentication:Audience"] ?? throw new ArgumentException("Authentication:Audience");

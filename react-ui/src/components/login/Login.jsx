@@ -10,8 +10,6 @@ const Login = () => {
   const [apiError, setApiError] = useState(""); // Add API error state
   const nav = useNavigate();
 
-  console.log(apiError);
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -24,9 +22,16 @@ const Login = () => {
       .post("Login", loginData)
       .then((result) => {
         if (result.status === 200) {
-          localStorage.setItem("site-token", result.data);
-          console.log("Logged in - success");
-          nav("/backoffice");
+          const token = result.data;
+          const tokenParts = token.split(".");
+          const payload = JSON.parse(atob(tokenParts[1]));
+          const tokenType = payload.type;
+
+          localStorage.setItem("site-token", token);
+          localStorage.setItem("site-token-type", tokenType);
+
+          setApiError("Logged in - success");
+          nav("/");
         } else {
           localStorage.setItem("site-token", "");
           setApiError(`could not login ${result.status}`);
@@ -43,6 +48,7 @@ const Login = () => {
       <form onSubmit={handleSubmit}>
         <label>Username :</label>
         <input
+          required
           type="text"
           placeholder="enter your username"
           onChange={(e) => setUsername(e.target.value)}
@@ -50,6 +56,7 @@ const Login = () => {
         <br />
         <label>Password :</label>
         <input
+          required
           type="password"
           placeholder="enter your password"
           onChange={(e) => setPassword(e.target.value)}

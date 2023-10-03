@@ -28,6 +28,17 @@ const UserList = () => {
       .catch((ex) => console.log(ex));
   }, []);
 
+  const userType = (statusValue) => {
+    switch (statusValue) {
+      case 0:
+        return "Unknown";
+      case 999:
+        return "Admin";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="listPage">
       <h3>Products List</h3>
@@ -38,6 +49,7 @@ const UserList = () => {
         <div className="itemListUp">ID</div>
         <div className="itemListUp">First Name</div>
         <div className="itemListUp">Last Name</div>
+        <div className="itemListUp">Type</div>
         <div className="itemListUp">Email</div>
         <div className="itemListUp">User Name</div>
         <div className="itemListUp">Password</div>
@@ -51,6 +63,7 @@ const UserList = () => {
             <div className="itemList">{item.id}</div>
             <div className="itemList">{item.firstName}</div>
             <div className="itemList">{item.lastName}</div>
+            <div className="itemList">{userType(item.type)}</div>
             <div className="itemList">{item.email}</div>
             <div className="itemList">{item.userName}</div>
             <div className="itemList">{item.password}</div>

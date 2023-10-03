@@ -8,6 +8,7 @@ const UserForm = () => {
   //const [id, setId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [type, setType] = useState("");
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -27,6 +28,7 @@ const UserForm = () => {
           setFirstName(item.firstName);
           setLastName(item.lastName);
           setEmail(item.email);
+          setType(item.type);
           setUserName(item.userName);
           setPassword(item.password);
           setAddress(item.address);
@@ -45,10 +47,14 @@ const UserForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
+    // Convert type to a number
+    const typeNumber = parseInt(type, 10);
+
     const newItem = {
       id: id || 0,
       firstName,
       lastName,
+      type: isNaN(typeNumber) ? 0 : typeNumber, // Use 0 as the default if the conversion fails
       email,
       userName,
       password,
@@ -69,6 +75,11 @@ const UserForm = () => {
         setApiError(ex.response ? ex.response.data : "An error occurred");
       });
   };
+
+  const userTypeOptions = [
+    { value: 0, label: "Unknown" },
+    { value: 999, label: "Admin" },
+  ];
 
   return (
     <>
@@ -91,6 +102,16 @@ const UserForm = () => {
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
+        </div>
+        <div className="formItem">
+          <div className="formLabel">Type</div>
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            {userTypeOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="formItem">
           <div className="formLabel">Email</div>
@@ -137,7 +158,7 @@ const UserForm = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
-      </div>{" "}
+      </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
       {/* Display API error message */}
       <button type="submit" onClick={handelSubmit}>

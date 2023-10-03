@@ -15,6 +15,7 @@ import OrderList from "./components/sidePanelBackOffice/objectsList/OrderList";
 import OrderForm from "./components/sidePanelBackOffice/objectsForm/OrderForm";
 
 function App() {
+  console.log(localStorage);
   return (
     <BrowserRouter>
       <Header />
