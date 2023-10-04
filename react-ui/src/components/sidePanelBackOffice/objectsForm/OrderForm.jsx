@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
+import "./Form.css";
 
 const OrderForm = () => {
   const { id } = useParams();
   //const [id, setId] = useState("");
   const [userID, setUserID] = useState("");
-  const [orderStatus, setOrderStatus] = useState("");
+  const [orderStatus, setOrderStatus] = useState(1);
   const [totalPrice, setTotalPrice] = useState("");
   const [apiError, setApiError] = useState(""); // Add API error state
 
@@ -36,6 +37,11 @@ const OrderForm = () => {
 
   const handelSubmit = (e) => {
     e.preventDefault();
+
+    if (!userID || !orderStatus || !totalPrice) {
+      setApiError("Please fill out all required fields");
+      return;
+    }
 
     const newItem = {
       id: id || 0,
@@ -73,7 +79,6 @@ const OrderForm = () => {
           <div className="formLabel">User ID</div>
           <input
             type="number"
-            required
             value={userID}
             onChange={(e) => setUserID(e.target.value)}
           />
@@ -95,18 +100,19 @@ const OrderForm = () => {
           <div className="formLabel">Total Price</div>
           <input
             type="number"
-            required
             value={totalPrice}
             onChange={(e) => setTotalPrice(e.target.value)}
           />
         </div>
+        <div className="buttonsDiv">
+          <button type="submit" onClick={handelSubmit}>
+            Save
+          </button>
+          <button onClick={handelCancel}>Cancel</button>
+        </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
       {/* Display API error message */}
-      <button type="submit" onClick={handelSubmit}>
-        Save
-      </button>
-      <button onClick={handelCancel}>Cancel</button>
     </>
   );
 };

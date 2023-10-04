@@ -53,9 +53,9 @@ const OrderList = () => {
 
   return (
     <div className="listPage">
-      <h3>Products List</h3>
+      <h3>Orders List</h3>
       <Link to="new">
-        <button>Add new product</button>
+        <button>Add new order</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>

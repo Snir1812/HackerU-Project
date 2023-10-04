@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
+import "./Form.css";
 
 const CategoryForm = () => {
   const { id } = useParams();
@@ -35,6 +36,11 @@ const CategoryForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
+    if (!name || !description) {
+      setApiError("Please fill out all required fields");
+      return;
+    }
+
     const newItem = {
       id: id || 0,
       name,
@@ -57,13 +63,12 @@ const CategoryForm = () => {
 
   return (
     <>
-      <h2>Product Form</h2>
+      <h2>Category Form</h2>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Name</div>
           <input
             type="text"
-            required
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -72,18 +77,19 @@ const CategoryForm = () => {
           <div className="formLabel">Description</div>
           <input
             type="text"
-            required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
+        </div>{" "}
+        <div className="buttonsDiv">
+          <button type="submit" onClick={handelSubmit}>
+            Save
+          </button>
+          <button onClick={handelCancel}>Cancel</button>
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
       {/* Display API error message */}
-      <button type="submit" onClick={handelSubmit}>
-        Save
-      </button>
-      <button onClick={handelCancel}>Cancel</button>
     </>
   );
 };

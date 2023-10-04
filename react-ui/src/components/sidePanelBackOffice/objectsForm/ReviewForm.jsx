@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
+import "./Form.css";
 
 const ReviewForm = () => {
   const { id } = useParams();
@@ -49,6 +50,11 @@ const ReviewForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
+    if (!productID || !userID || !reviewText || !rating) {
+      setApiError("Please fill out all required fields");
+      return;
+    }
+
     const newItem = {
       id: id || 0,
       productID,
@@ -73,13 +79,12 @@ const ReviewForm = () => {
 
   return (
     <>
-      <h2>Product Form</h2>
+      <h2>Review Form</h2>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Product ID</div>
           <input
             type="number"
-            required
             value={productID}
             onChange={(e) => setProductID(e.target.value)}
           />
@@ -88,7 +93,6 @@ const ReviewForm = () => {
           <div className="formLabel">User ID</div>
           <input
             type="number"
-            required
             value={userID}
             onChange={(e) => setUserID(e.target.value)}
           />
@@ -97,7 +101,6 @@ const ReviewForm = () => {
           <div className="formLabel">Review Text</div>
           <input
             type="text"
-            required
             value={reviewText}
             onChange={(e) => setReviewText(e.target.value)}
           />
@@ -106,7 +109,6 @@ const ReviewForm = () => {
           <div className="formLabel">Rating</div>
           <input
             type="number"
-            required
             min="1"
             max="10"
             value={rating}
@@ -117,13 +119,15 @@ const ReviewForm = () => {
           />
           {ratingError && <p className="error">{ratingError}</p>}
         </div>
+        <div className="buttonsDiv">
+          <button type="submit" onClick={handelSubmit}>
+            Save
+          </button>
+          <button onClick={handelCancel}>Cancel</button>
+        </div>
       </div>
-      {apiError && <p className="error">{apiError}</p>}{" "}
+      {apiError && <p className="error">{apiError}</p>}
       {/* Display API error message */}
-      <button type="submit" onClick={handelSubmit}>
-        Save
-      </button>
-      <button onClick={handelCancel}>Cancel</button>
     </>
   );
 };

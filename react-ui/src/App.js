@@ -13,14 +13,22 @@ import CategoryList from "./components/sidePanelBackOffice/objectsList/CategoryL
 import CategoryForm from "./components/sidePanelBackOffice/objectsForm/CategoryForm";
 import OrderList from "./components/sidePanelBackOffice/objectsList/OrderList";
 import OrderForm from "./components/sidePanelBackOffice/objectsForm/OrderForm";
+import Home from "./pages/home/Home";
 
 function App() {
-  console.log(localStorage);
+  const expirationTimeToken = localStorage.getItem("site-token-expiration");
+  const currentTime = new Date().getTime();
+
+  if (currentTime > parseInt(expirationTimeToken, 10)) {
+    localStorage.clear();
+  }
+
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<UserForm />} />
         <Route
           path="/backoffice"
           element={
@@ -45,7 +53,7 @@ function App() {
           <Route path="order/new" element={<OrderForm />} />
           <Route path="order/edit/:id" element={<OrderForm />} />
         </Route>
-        <Route path="/" element={<div>Home</div>} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

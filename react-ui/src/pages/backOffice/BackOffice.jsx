@@ -13,7 +13,6 @@ const BackOffice = () => {
       >
         <Row className="w-100">
           <Col md={9} className="w-100">
-            <h2>Welcome to the back office</h2>
             <Outlet />
           </Col>
         </Row>

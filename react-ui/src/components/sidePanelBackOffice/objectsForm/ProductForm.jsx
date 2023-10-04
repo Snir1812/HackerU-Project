@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
+import "./Form.css";
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -43,6 +44,18 @@ const ProductForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
+    if (
+      !productName ||
+      !categoryID ||
+      !description ||
+      !price ||
+      !stockQuantity ||
+      !imageFile
+    ) {
+      setApiError("Please fill out all required fields");
+      return;
+    }
+
     const formData = new FormData();
 
     formData.append("id", id || 0);
@@ -73,7 +86,6 @@ const ProductForm = () => {
           <div className="formLabel">Product Name</div>
           <input
             type="text"
-            required
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
           />
@@ -82,7 +94,6 @@ const ProductForm = () => {
           <div className="formLabel">Category ID</div>
           <input
             type="number"
-            required
             value={categoryID}
             onChange={(e) => setCategoryID(e.target.value)}
           />
@@ -91,7 +102,6 @@ const ProductForm = () => {
           <div className="formLabel">Description</div>
           <input
             type="text"
-            required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -100,7 +110,6 @@ const ProductForm = () => {
           <div className="formLabel">Price</div>
           <input
             type="number"
-            required
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
@@ -109,7 +118,6 @@ const ProductForm = () => {
           <div className="formLabel">Stock Quantity</div>
           <input
             type="number"
-            required
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
           />
@@ -133,14 +141,16 @@ const ProductForm = () => {
               className="productImage"
             />
           )}
+        </div>{" "}
+        <div className="buttonsDiv">
+          <button type="submit" onClick={handelSubmit}>
+            Save
+          </button>
+          <button onClick={handelCancel}>Cancel</button>
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}
       {/* Display API error message */}
-      <button type="submit" onClick={handelSubmit}>
-        Save
-      </button>
-      <button onClick={handelCancel}>Cancel</button>
     </>
   );
 };

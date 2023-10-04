@@ -34,9 +34,9 @@ const CategoryList = () => {
 
   return (
     <div className="listPage">
-      <h3>Products List</h3>
+      <h3>Categories List</h3>
       <Link to="new">
-        <button>Add new product</button>
+        <button>Add new category</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>

@@ -41,9 +41,9 @@ const UserList = () => {
 
   return (
     <div className="listPage">
-      <h3>Products List</h3>
+      <h3>Users List</h3>
       <Link to="new">
-        <button>Add new product</button>
+        <button>Add new user</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>

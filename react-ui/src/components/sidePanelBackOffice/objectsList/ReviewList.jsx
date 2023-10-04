@@ -39,9 +39,9 @@ const ReviewList = () => {
 
   return (
     <div className="listPage">
-      <h3>Products List</h3>
+      <h3>Reviews List</h3>
       <Link to="new">
-        <button>Add new product</button>
+        <button>Add new review</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>
