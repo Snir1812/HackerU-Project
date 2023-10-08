@@ -3,6 +3,7 @@ import { useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Form.css";
+import "../../../pages/General.css";
 
 const UserForm = () => {
   const { id } = useParams();
@@ -99,7 +100,7 @@ const UserForm = () => {
   ];
 
   return (
-    <>
+    <div className="generalPage flex-column">
       <h2>User Form</h2>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
@@ -179,7 +180,7 @@ const UserForm = () => {
       </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
       {/* Display API error message */}
-    </>
+    </div>
   );
 };
 
