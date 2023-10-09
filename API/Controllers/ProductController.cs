@@ -69,6 +69,55 @@ namespace API.Controllers
 			return Ok(productsWithImages);
 		}
 
+		[HttpGet("Category/{categoryID:int}")]
+		public IActionResult GetByCategoryID(int categoryID)
+		{
+			var products = _productRepo
+				.FindByCondition(p => p.CategoryID == categoryID)
+				.Include(p => p.Reviews)
+				.ToList();
+
+			var productsWithImages = new List<object>();
+
+			foreach (var product in products)
+			{
+				if (string.IsNullOrEmpty(product.ImageUrl))
+				{
+					productsWithImages.Add(new
+					{
+						Product = product,
+						ImageBase64 = string.Empty // No image available
+					});
+				}
+				else
+				{
+					var imagePath = Path.Combine("Images", product.ImageUrl);
+
+					if (System.IO.File.Exists(imagePath))
+					{
+						byte[] imageData = System.IO.File.ReadAllBytes(imagePath);
+						string base64Image = Convert.ToBase64String(imageData);
+
+						productsWithImages.Add(new
+						{
+							Product = product,
+							ImageBase64 = base64Image
+						});
+					}
+					else
+					{
+						productsWithImages.Add(new
+						{
+							Product = product,
+							ImageBase64 = string.Empty // No image available
+						});
+					}
+				}
+			}
+
+			return Ok(productsWithImages);
+		}
+
 		[HttpGet("{id:int}")]
 		public IActionResult GetByID(int id)
 		{

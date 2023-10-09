@@ -4,14 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ApiDataProvider } from "./context/ApiDataContext";
+import { CategoryDataProvider } from "./context/CategoryDataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
-  <ApiDataProvider>
+  <CategoryDataProvider>
     <App />
-  </ApiDataProvider>
+  </CategoryDataProvider>
   //</React.StrictMode>
 );
 
