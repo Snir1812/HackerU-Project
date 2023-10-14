@@ -9,20 +9,26 @@ export const useCategoryData = () => {
 
 export const CategoryDataProvider = ({ children }) => {
   const [categoryData, setCategoryData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api
-      .get("Category")
-      .then((result) => {
-        console.log(result.data);
-        setCategoryData(result.data);
-      })
-      .catch((ex) => console.log(ex));
-  }, []);
+    if (categoryData === null) {
+      api
+        .get("Category")
+        .then((result) => {
+          setCategoryData(result.data);
+          setLoading(false);
+        })
+        .catch((ex) => {
+          console.log(ex);
+          setLoading(false);
+        });
+    }
+  }, [categoryData]);
 
   return (
     <CategoryDataContext.Provider value={categoryData}>
-      {children}
+      {loading ? <p>Loading...</p> : children}
     </CategoryDataContext.Provider>
   );
 };

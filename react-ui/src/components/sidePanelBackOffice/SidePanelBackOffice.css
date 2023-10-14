@@ -1,9 +1,10 @@
 .sidePanel {
   width: 250px;
-  min-height: 78vh;
+  height: 78vh;
   background: red;
   display: flex;
   justify-content: center;
+  padding-top: 30px;
   align-items: center;
   flex-direction: column;
   gap: 2rem;

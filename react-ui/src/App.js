@@ -14,6 +14,8 @@ import CategoryForm from "./components/sidePanelBackOffice/objectsForm/CategoryF
 import OrderList from "./components/sidePanelBackOffice/objectsList/OrderList";
 import OrderForm from "./components/sidePanelBackOffice/objectsForm/OrderForm";
 import Home from "./pages/home/Home";
+import Product from "./pages/product/Product";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   const expirationTimeToken = localStorage.getItem("site-token-expiration");
@@ -54,6 +56,11 @@ function App() {
           <Route path="order/edit/:id" element={<OrderForm />} />
         </Route>
         <Route path="/" element={<Home />} />
+        <Route path="/products/:categoryID" element={<Product />} />
+        <Route
+          path="/products/details/:productID"
+          element={<ProductDetails />}
+        />
       </Routes>
     </BrowserRouter>
   );

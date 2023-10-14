@@ -5,12 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CategoryDataProvider } from "./context/CategoryDataContext";
+import { ProductDataProvider } from "./context/ProductDataContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
   <CategoryDataProvider>
+    {/* <ProductDataProvider> */}
     <App />
+    {/* </ProductDataProvider> */}
   </CategoryDataProvider>
   //</React.StrictMode>
 );

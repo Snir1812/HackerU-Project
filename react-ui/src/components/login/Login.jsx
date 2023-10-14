@@ -64,6 +64,7 @@ const Login = () => {
   return (
     <div className="generalPage">
       <form onSubmit={handleSubmit} className="loginForm">
+        <div className="fs-2 fw-medium">Log In</div>
         <div className="formItem">
           <label>Username :</label>
           <input type="text" onChange={(e) => setUsername(e.target.value)} />
