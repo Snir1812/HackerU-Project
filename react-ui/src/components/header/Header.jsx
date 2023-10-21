@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { useCategoryData } from "../../context/CategoryDataContext";
 import { ProductDataProvider } from "../../context/ProductDataContext";
 import { NavLink } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { render } from "@testing-library/react";
+import Cart from "./Cart";
+import { BsCartDash } from "react-icons/bs";
 
 const Header = () => {
   const token = localStorage.getItem("site-token");
   const tokenType = localStorage.getItem("site-token-type");
+
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0); // Initialize cart item count
 
   const handleLogOut = () => {
     localStorage.clear();
@@ -16,6 +21,16 @@ const Header = () => {
   };
 
   const categoryData = useCategoryData();
+
+  const toggleCart = () => {
+    setCartOpen(!isCartOpen);
+  };
+
+  // Update cart item count whenever the cart data changes
+  useEffect(() => {
+    const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
+    setCartItemCount(storedCartData.length);
+  }, []);
 
   return (
     <div className="header">
@@ -52,6 +67,13 @@ const Header = () => {
           Back office
         </NavLink>
       )}
+      <button className="cartBtnDiv" onClick={toggleCart}>
+        <BsCartDash className="cartBtn" />
+        {/* {cartItemCount > 0 && (
+          <span className="cartBadge">{cartItemCount}</span>
+        )} */}
+      </button>
+      {isCartOpen && <Cart />}
     </div>
   );
 };

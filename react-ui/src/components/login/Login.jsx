@@ -17,9 +17,11 @@ const Login = () => {
     const tokenParts = token.split(".");
     const payload = JSON.parse(atob(tokenParts[1]));
     const tokenType = payload.type;
+    const tokenUserID = payload.sub;
 
     localStorage.setItem("site-token", token);
     localStorage.setItem("site-token-type", tokenType);
+    localStorage.setItem("site-token-userID", tokenUserID);
     localStorage.setItem("site-token-expiration", expirationTime);
   };
 

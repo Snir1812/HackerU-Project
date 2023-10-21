@@ -61,6 +61,25 @@ namespace API.Controllers
 				return BadRequest("The user id you selected is not found");
 			}
 
+			decimal totalOrderPrice = 0;
+
+			if (order.OrderItems == null)
+			{
+				order.TotalPrice = 0;
+			}
+			else
+			{
+				// Calculate the total price for each order item and sum it to calculate the total order price
+				foreach (var orderItem in order.OrderItems)
+				{
+					decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
+					totalOrderPrice += itemTotalPrice;
+				}
+
+				// Set the total order price in the order object
+				order.TotalPrice = totalOrderPrice;
+			}
+
 			//order.OrderStatus = OrderStatus.Ordered;
 			order.OrderDate = DateTime.UtcNow;
 
@@ -87,6 +106,25 @@ namespace API.Controllers
 			if (!userIdExists)
 			{
 				return BadRequest("The user id you selected is not found");
+			}
+
+			decimal totalOrderPrice = 0;
+
+			if (order.OrderItems == null)
+			{
+				order.TotalPrice = 0;
+			}
+			else
+			{
+				// Calculate the total price for each order item and sum it to calculate the total order price
+				foreach (var orderItem in order.OrderItems)
+				{
+					decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
+					totalOrderPrice += itemTotalPrice;
+				}
+
+				// Set the total order price in the order object
+				order.TotalPrice = totalOrderPrice;
 			}
 
 			var result = _orderRepo.Update(order);

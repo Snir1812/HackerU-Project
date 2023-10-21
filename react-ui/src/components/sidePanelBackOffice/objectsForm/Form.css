@@ -17,3 +17,9 @@
   justify-content: center;
   gap: 0.5rem;
 }
+.orderItem {
+  border: 1px solid black;
+  display: flex;
+  gap: 0.5rem;
+  padding: 10px;
+}

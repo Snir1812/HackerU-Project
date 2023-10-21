@@ -15,3 +15,13 @@
   color: black;
   font-size: 22px;
 }
+.cartBtnDiv {
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cartBtn {
+  font-size: 22px;
+}
