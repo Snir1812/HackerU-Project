@@ -16,6 +16,7 @@ import OrderForm from "./components/sidePanelBackOffice/objectsForm/OrderForm";
 import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
 import ProductDetails from "./pages/ProductDetails";
+import Footer from "./components/footer/Footer";
 
 function App() {
   const expirationTimeToken = localStorage.getItem("site-token-expiration");
@@ -62,6 +63,7 @@ function App() {
           element={<ProductDetails />}
         />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

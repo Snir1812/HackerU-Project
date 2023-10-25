@@ -1,13 +1,14 @@
 .cartDiv {
   width: 200px;
   min-height: 100px;
-  border: 1px solid black;
-  background: red;
+  /* border: 1px solid black; */
+  background: rgb(237, 167, 161);
   position: fixed;
   top: 100px;
   text-align: center;
   padding: 15px;
   border-radius: 10px;
+  color: black;
 }
 .cartItemList {
   display: flex;

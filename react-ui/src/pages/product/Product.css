@@ -8,7 +8,8 @@
 }
 .cardDiv {
   width: 200px;
-  height: 290px;
+  height: 320px;
+  gap: 0.1rem;
   display: flex;
   align-items: center;
   /* justify-content: center; */
@@ -17,5 +18,7 @@
   border-radius: 10px;
 }
 .cardImage {
+  width: 200px;
+  height: 200px;
   border-radius: 10px 10px 0 0;
 }

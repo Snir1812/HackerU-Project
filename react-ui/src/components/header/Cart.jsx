@@ -33,6 +33,14 @@ const Cart = () => {
   };
 
   const handleOrder = () => {
+    if (cartData.length === 0) {
+      // Check if the cart is empty and provide feedback to the user
+      setApiError(
+        "Your cart is empty. Add items to your cart before placing an order"
+      );
+      return;
+    }
+
     const orderItems = cartData.map((item) => item);
 
     const orderData = {
@@ -40,14 +48,12 @@ const Cart = () => {
       orderItems: orderItems,
     };
 
-    console.log(orderData);
-
     api
       .post("Order", orderData)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         localStorage.removeItem("cart");
-        // console.log(localStorage.getItem("cart"));
+        window.location.reload();
       })
       .catch((ex) => {
         setApiError(ex.response ? ex.response.data : "An error occurred");
@@ -74,7 +80,7 @@ const Cart = () => {
           ))
         )}
       </div>
-      <button onClick={handleOrder}>To order</button>
+      {cartData.length !== 0 && <button onClick={handleOrder}>To order</button>}
       {apiError && <p className="error">{apiError}</p>}
     </div>
   );

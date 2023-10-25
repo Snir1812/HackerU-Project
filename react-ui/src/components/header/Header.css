@@ -1,14 +1,16 @@
 .header {
+  /* position: fixed; */
   height: 10vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(151, 84, 84);
+  background: rgb(242, 106, 94);
   font-size: xx-large;
   color: white;
   gap: 1rem;
-  margin-bottom: 30px;
+  margin-bottom: 3vh;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .headerLink {
   text-decoration: none;

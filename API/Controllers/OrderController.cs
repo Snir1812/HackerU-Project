@@ -13,12 +13,14 @@ namespace API.Controllers
 		private readonly IConfiguration _config;
 		private readonly IUserRepository _userRepo;
 		private readonly IOrderRepository _orderRepo;
+		private readonly IProductRepository _productRepo;
 
-		public OrderController(IConfiguration _config, IUserRepository _userRepo, IOrderRepository _orderRepo)
+		public OrderController(IConfiguration _config, IUserRepository _userRepo, IOrderRepository _orderRepo,IProductRepository _productRepo)
 		{
 			this._config = _config ?? throw new ArgumentNullException(nameof(_config));
 			this._userRepo = _userRepo ?? throw new ArgumentNullException(nameof(_userRepo));
 			this._orderRepo = _orderRepo ?? throw new ArgumentNullException(nameof(_orderRepo));
+			this._productRepo = _productRepo ?? throw new ArgumentNullException(nameof(_productRepo));
 		}
 
 		[HttpGet]
@@ -55,13 +57,14 @@ namespace API.Controllers
 				return BadRequest();
 			}
 
-			var userIdExists = _userRepo.FindByCondition(o => o.ID == order.UserID).Any();
+			var userIdExists = _userRepo.FindByCondition(u => u.ID == order.UserID).Any();
 			if (!userIdExists)
 			{
 				return BadRequest("The user id you selected is not found");
 			}
 
 			decimal totalOrderPrice = 0;
+			List<OrderItem> orderItemsWithInsufficientStock = new List<OrderItem>();
 
 			if (order.OrderItems == null)
 			{
@@ -69,18 +72,33 @@ namespace API.Controllers
 			}
 			else
 			{
-				// Calculate the total price for each order item and sum it to calculate the total order price
 				foreach (var orderItem in order.OrderItems)
 				{
-					decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
-					totalOrderPrice += itemTotalPrice;
+					// Check if there is enough stock for the product
+					var product = _productRepo.FindByCondition(p => p.ID == orderItem.ProductID).FirstOrDefault();
+					if (product == null || product.StockQuantity < orderItem.Quantity)
+					{
+						// Add the order item to the list of items with insufficient stock
+						orderItemsWithInsufficientStock.Add(orderItem);
+					}
+					else
+					{
+						decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
+						totalOrderPrice += itemTotalPrice;
+						// Reduce the stock quantity of the product
+						product.StockQuantity -= orderItem.Quantity;
+						_productRepo.Update(product);
+					}
 				}
 
-				// Set the total order price in the order object
+				if (orderItemsWithInsufficientStock.Count > 0)
+				{
+					return BadRequest("Insufficient stock for one or more items in the order");
+				}
+
 				order.TotalPrice = totalOrderPrice;
 			}
 
-			//order.OrderStatus = OrderStatus.Ordered;
 			order.OrderDate = DateTime.UtcNow;
 
 			var result = _orderRepo.Create(order);
@@ -102,13 +120,14 @@ namespace API.Controllers
 				return NotFound();
 			}
 
-			var userIdExists = _userRepo.FindByCondition(o => o.ID == order.UserID).Any();
+			var userIdExists = _userRepo.FindByCondition(u => u.ID == order.UserID).Any();
 			if (!userIdExists)
 			{
 				return BadRequest("The user id you selected is not found");
 			}
 
 			decimal totalOrderPrice = 0;
+			List<OrderItem> orderItemsWithInsufficientStock = new List<OrderItem>();
 
 			if (order.OrderItems == null)
 			{
@@ -116,20 +135,37 @@ namespace API.Controllers
 			}
 			else
 			{
-				// Calculate the total price for each order item and sum it to calculate the total order price
 				foreach (var orderItem in order.OrderItems)
 				{
-					decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
-					totalOrderPrice += itemTotalPrice;
+					// Check if there is enough stock for the product
+					var product = _productRepo.FindByCondition(p => p.ID == orderItem.ProductID).FirstOrDefault();
+					if (product == null || product.StockQuantity < orderItem.Quantity)
+					{
+						// Add the order item to the list of items with insufficient stock
+						orderItemsWithInsufficientStock.Add(orderItem);
+					}
+					else
+					{
+						decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
+						totalOrderPrice += itemTotalPrice;
+						// Reduce the stock quantity of the product
+						product.StockQuantity -= orderItem.Quantity;
+						_productRepo.Update(product);
+					}
 				}
 
-				// Set the total order price in the order object
+				if (orderItemsWithInsufficientStock.Count > 0)
+				{
+					return BadRequest("Insufficient stock for one or more items in the order");
+				}
+
 				order.TotalPrice = totalOrderPrice;
 			}
 
 			var result = _orderRepo.Update(order);
 			return NoContent();
 		}
+
 
 		[HttpDelete("{id:int}")]
 		public IActionResult Delete(int id)

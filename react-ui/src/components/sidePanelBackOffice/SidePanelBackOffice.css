@@ -1,15 +1,29 @@
 .sidePanel {
+  /* position: fixed; */
+  right: 0;
   width: 250px;
-  height: 78vh;
-  background: red;
+  height: 71vh;
+  background: rgb(237, 167, 161);
   display: flex;
   justify-content: center;
   padding-top: 30px;
   align-items: center;
   flex-direction: column;
   gap: 2rem;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  /* box-shadow: 1px 3px 10px; */
+  border-radius: 20px 0px 0px 20px;
 }
 .item {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  border-radius: 20px;
+  width: 100px;
+  /* height: 30px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px 20px;
+  background: rgb(242, 106, 94);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
