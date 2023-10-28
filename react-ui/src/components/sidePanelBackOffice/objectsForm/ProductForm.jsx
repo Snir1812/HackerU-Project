@@ -124,16 +124,15 @@ const ProductForm = () => {
         </div>
         <div className="formItem">
           <div className="formLabel">Image</div>
-          {!imageFile && (
-            <input
-              type="file"
-              accept=".jpg, .jpeg, .png, .gif"
-              onChange={(e) => {
-                setImageFile(e.target.files[0]);
-              }}
-            />
-          )}
-
+          {/* {!imageFile && ( */}
+          <input
+            type="file"
+            accept=".jpg, .jpeg, .png, .gif"
+            onChange={(e) => {
+              setImageFile(e.target.files[0]);
+            }}
+          />
+          {/* )} */}
           {imageFile && (
             <img
               src={`data:image/jpeg;base64,${imageFile}`} // Adjust the format accordingly
@@ -141,7 +140,7 @@ const ProductForm = () => {
               className="productImage"
             />
           )}
-        </div>{" "}
+        </div>
         <div className="buttonsDiv">
           <button type="submit" onClick={handelSubmit}>
             Save

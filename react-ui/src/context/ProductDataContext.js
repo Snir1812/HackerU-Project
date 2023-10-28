@@ -7,22 +7,18 @@ export const useProductData = () => {
   return useContext(ProductDataContext);
 };
 
-export const ProductDataProvider = ({ children, categoryID }) => {
+export const ProductDataProvider = ({ children }) => {
   const [productData, setProductData] = useState(null);
 
   useEffect(() => {
-    // Make an API request when categoryID changes
-    if (categoryID) {
-      api
-        .get(`Product/Category/${categoryID}`)
-        .then((result) => {
-          console.log(result.data);
-          // Set product data in the state
-          setProductData(result.data);
-        })
-        .catch((ex) => console.log(ex));
-    }
-  }, [categoryID]); // Only re-run the effect if categoryID changes
+    api
+      .get(`Product`)
+      .then((result) => {
+        // console.log(result.data);
+        setProductData(result.data);
+      })
+      .catch((ex) => console.log(ex));
+  }, []);
 
   return (
     <ProductDataContext.Provider value={productData}>

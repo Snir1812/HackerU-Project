@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: auto;
-  min-height: 78vh;
+  min-height: 69vh;
   gap: 2rem;
 }
 .cardDiv {

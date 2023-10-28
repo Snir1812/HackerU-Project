@@ -11,9 +11,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   //<React.StrictMode>
   <CategoryDataProvider>
-    {/* <ProductDataProvider> */}
-    <App />
-    {/* </ProductDataProvider> */}
+    <ProductDataProvider>
+      <App />
+    </ProductDataProvider>
   </CategoryDataProvider>
   //</React.StrictMode>
 );

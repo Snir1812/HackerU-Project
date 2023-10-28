@@ -15,7 +15,7 @@ import OrderList from "./components/sidePanelBackOffice/objectsList/OrderList";
 import OrderForm from "./components/sidePanelBackOffice/objectsForm/OrderForm";
 import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
-import ProductDetails from "./pages/ProductDetails";
+import ProductDetails from "./pages/productDetails/ProductDetails";
 import Footer from "./components/footer/Footer";
 
 function App() {

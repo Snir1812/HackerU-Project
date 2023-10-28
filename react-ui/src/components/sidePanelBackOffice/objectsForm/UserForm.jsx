@@ -55,7 +55,6 @@ const UserForm = () => {
       !firstName ||
       !lastName ||
       !email ||
-      !type ||
       !userName ||
       !password ||
       !address ||

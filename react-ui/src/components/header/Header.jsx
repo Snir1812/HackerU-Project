@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { useCategoryData } from "../../context/CategoryDataContext";
-import { ProductDataProvider } from "../../context/ProductDataContext";
 import { NavLink } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
-import { render } from "@testing-library/react";
 import Cart from "./Cart";
 import { BsCartDash } from "react-icons/bs";
 
@@ -13,7 +10,7 @@ const Header = () => {
   const tokenType = localStorage.getItem("site-token-type");
 
   const [isCartOpen, setCartOpen] = useState(false);
-  const [cartItemCount, setCartItemCount] = useState(0); // Initialize cart item count
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   const handleLogOut = () => {
     localStorage.clear();
@@ -26,7 +23,6 @@ const Header = () => {
     setCartOpen(!isCartOpen);
   };
 
-  // Update cart item count whenever the cart data changes
   useEffect(() => {
     const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
     setCartItemCount(storedCartData.length);
@@ -36,9 +32,11 @@ const Header = () => {
     <div className="header">
       <NavLink to="/" className="headerLink">
         Home
+      </NavLink>{" "}
+      <NavLink to={`/products/all`} className="headerLink" key="">
+        All
       </NavLink>
       {categoryData ? (
-        // Render data here when it's available
         categoryData.map((item) => (
           <NavLink
             to={`/products/${item.id}`}
@@ -49,7 +47,6 @@ const Header = () => {
           </NavLink>
         ))
       ) : (
-        // Render loading state or handle error
         <p>Loading...</p>
       )}
       {!token && (
@@ -69,9 +66,9 @@ const Header = () => {
       )}
       <button className="cartBtnDiv" onClick={toggleCart}>
         <BsCartDash className="cartBtn" />
-        {/* {cartItemCount > 0 && (
+        {cartItemCount > 0 && (
           <span className="cartBadge">{cartItemCount}</span>
-        )} */}
+        )}
       </button>
       {isCartOpen && <Cart />}
     </div>

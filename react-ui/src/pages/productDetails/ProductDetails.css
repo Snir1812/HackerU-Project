@@ -1,0 +1,26 @@
+.detailsPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 74vh;
+}
+.detailsDiv {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
+  min-height: 600px;
+  width: 300px;
+}
+.detailsItem {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  border: 1px solid black;
+
+  /* width: 100%; */
+}
+.detailsImage {
+  height: 300px;
+  width: 300px;
+}
