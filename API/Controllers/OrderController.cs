@@ -15,7 +15,7 @@ namespace API.Controllers
 		private readonly IOrderRepository _orderRepo;
 		private readonly IProductRepository _productRepo;
 
-		public OrderController(IConfiguration _config, IUserRepository _userRepo, IOrderRepository _orderRepo,IProductRepository _productRepo)
+		public OrderController(IConfiguration _config, IUserRepository _userRepo, IOrderRepository _orderRepo, IProductRepository _productRepo)
 		{
 			this._config = _config ?? throw new ArgumentNullException(nameof(_config));
 			this._userRepo = _userRepo ?? throw new ArgumentNullException(nameof(_userRepo));
@@ -113,9 +113,11 @@ namespace API.Controllers
 				return BadRequest();
 			}
 
-			var exists = _orderRepo.FindByCondition(o => o.ID == order.ID).Any();
+			var existingOrder = _orderRepo.FindByCondition(o => o.ID == order.ID)
+											.Include(o => o.OrderItems)
+											.FirstOrDefault();
 
-			if (!exists)
+			if (existingOrder == null)
 			{
 				return NotFound();
 			}
@@ -126,43 +128,69 @@ namespace API.Controllers
 				return BadRequest("The user id you selected is not found");
 			}
 
-			decimal totalOrderPrice = 0;
 			List<OrderItem> orderItemsWithInsufficientStock = new List<OrderItem>();
 
-			if (order.OrderItems == null)
-			{
-				order.TotalPrice = 0;
-			}
-			else
+			if (order.OrderItems != null)
 			{
 				foreach (var orderItem in order.OrderItems)
 				{
-					// Check if there is enough stock for the product
-					var product = _productRepo.FindByCondition(p => p.ID == orderItem.ProductID).FirstOrDefault();
-					if (product == null || product.StockQuantity < orderItem.Quantity)
+					if (orderItem.ID == 0)
 					{
-						// Add the order item to the list of items with insufficient stock
-						orderItemsWithInsufficientStock.Add(orderItem);
+						int quantityDifference = orderItem.Quantity;
+
+						var product = _productRepo.FindByCondition(p => p.ID == orderItem.ProductID).FirstOrDefault();
+
+						if (product == null || product.StockQuantity < quantityDifference)
+						{
+							orderItemsWithInsufficientStock.Add(orderItem);
+						}
+						else
+						{
+							product.StockQuantity -= quantityDifference;
+							_productRepo.Update(product);
+
+							existingOrder.OrderItems.Add(orderItem);
+						}
 					}
 					else
 					{
-						decimal itemTotalPrice = orderItem.PricePerItem * orderItem.Quantity;
-						totalOrderPrice += itemTotalPrice;
-						// Reduce the stock quantity of the product
-						product.StockQuantity -= orderItem.Quantity;
-						_productRepo.Update(product);
+						var existingOrderItem = existingOrder.OrderItems.FirstOrDefault(oi => oi.ID == orderItem.ID);
+
+						if (existingOrderItem == null)
+						{
+							return BadRequest("Order item not found in the existing order");
+						}
+
+						int quantityDifference = orderItem.Quantity - existingOrderItem.Quantity;
+
+						var product = _productRepo.FindByCondition(p => p.ID == orderItem.ProductID).FirstOrDefault();
+
+						if (product == null || product.StockQuantity < quantityDifference)
+						{
+							orderItemsWithInsufficientStock.Add(orderItem);
+						}
+						else
+						{
+							product.StockQuantity -= quantityDifference;
+							_productRepo.Update(product);
+
+							existingOrderItem.Quantity = orderItem.Quantity;
+							existingOrderItem.PricePerItem = orderItem.PricePerItem;
+						}
 					}
 				}
-
-				if (orderItemsWithInsufficientStock.Count > 0)
-				{
-					return BadRequest("Insufficient stock for one or more items in the order");
-				}
-
-				order.TotalPrice = totalOrderPrice;
 			}
 
-			var result = _orderRepo.Update(order);
+			if (orderItemsWithInsufficientStock.Count > 0)
+			{
+				return BadRequest("Insufficient stock for one or more items in the order");
+			}
+
+			decimal totalOrderPrice = existingOrder.OrderItems.Sum(oi => oi.PricePerItem * oi.Quantity);
+			existingOrder.TotalPrice = totalOrderPrice;
+
+			_orderRepo.Update(existingOrder);
+
 			return NoContent();
 		}
 
