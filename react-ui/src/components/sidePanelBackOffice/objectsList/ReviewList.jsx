@@ -41,7 +41,7 @@ const ReviewList = () => {
     <div className="listPage">
       <h3>Reviews List</h3>
       <Link to="new">
-        <button>Add new review</button>
+        <button className="newButton">Add new review</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>
@@ -62,11 +62,14 @@ const ReviewList = () => {
             <div className="itemList">{item.reviewText}</div>
             <div className="itemList">{formatDate(item.reviewDate)}</div>{" "}
             {/* Format the date */}
-            <div className="itemList">
-              <Link to={`edit/${item.id}`}>
-                <button className="button">Edit</button>
+            <div className="itemListButtons">
+              <Link to={`edit/${item.id}`} className="noUnderline">
+                <button className="button edit">Edit</button>
               </Link>
-              <button className="button" onClick={() => handelDelete(item.id)}>
+              <button
+                className="button delete"
+                onClick={() => handelDelete(item.id)}
+              >
                 Delete
               </button>
             </div>

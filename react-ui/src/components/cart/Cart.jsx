@@ -68,14 +68,18 @@ const Cart = () => {
           <div className="cartItem">Your cart is empty.</div>
         ) : (
           cartData.map((item) => (
-            <div className="cartItem" key={item.id}>
-              {item.productName} - {item.price}
-              <br />
-              {item.quantity}
-              <br />
-              <button onClick={() => removeFromCart(item.id)}>
-                <AiOutlineClose />
-              </button>
+            <div className="cartItemDiv" key={item.id}>
+              <span className="cartItem"> {item.productName}</span>
+              <div>
+                <span className="cartItem"> {item.pricePerItem}$</span>
+                <span className="cartItem"> {item.quantity}</span>
+                <button
+                  className="cartItemButton"
+                  onClick={() => removeFromCart(item.id)}
+                >
+                  <AiOutlineClose />
+                </button>
+              </div>
             </div>
           ))
         )}

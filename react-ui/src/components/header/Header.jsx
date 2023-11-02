@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { useCategoryData } from "../../context/CategoryDataContext";
 import { NavLink } from "react-router-dom";
-import Cart from "./Cart";
+import Cart from "../cart/Cart";
 import { BsCartDash } from "react-icons/bs";
 
 const Header = () => {

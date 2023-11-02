@@ -32,7 +32,7 @@ const ProductList = () => {
     <div className="listPage">
       <h3>Products List</h3>
       <Link to="new">
-        <button>Add new product</button>
+        <button className="newButton">Add new product</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>
@@ -58,12 +58,12 @@ const ProductList = () => {
               alt={item.productName}
               className="productImage"
             />
-            <div className="itemList">
-              <Link to={`edit/${item.product.id}`}>
-                <button className="button">Edit</button>
+            <div className="itemListButtons">
+              <Link to={`edit/${item.product.id}`} className="noUnderline">
+                <button className="button edit">Edit</button>
               </Link>
               <button
-                className="button"
+                className="button delete"
                 onClick={() => handelDelete(item.product.id)}
               >
                 Delete

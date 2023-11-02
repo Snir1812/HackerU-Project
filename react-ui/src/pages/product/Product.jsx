@@ -73,14 +73,16 @@ const Products = () => {
             <div className="cardItem">{item.product.productName}</div>
             <div className="cardItem">{item.product.price}$</div>
             <button
-              className="cardItem"
+              className="cardButton"
               onClick={() => {
                 navigate(`/products/details/${item.product.id}`);
               }}
             >
               More Details
             </button>
-            <button onClick={() => addToCart(item)}>Add To Cart</button>
+            <button className="cardButton" onClick={() => addToCart(item)}>
+              Add To Cart
+            </button>
           </div>
         ))}
       </div>

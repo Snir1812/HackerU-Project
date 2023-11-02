@@ -36,7 +36,7 @@ const CategoryList = () => {
     <div className="listPage">
       <h3>Categories List</h3>
       <Link to="new">
-        <button>Add new category</button>
+        <button className="newButton">Add new category</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>
@@ -50,11 +50,14 @@ const CategoryList = () => {
             <div className="itemList">{item.id}</div>
             <div className="itemList">{item.name}</div>
             <div className="itemList">{item.description}</div>
-            <div className="itemList">
-              <Link to={`edit/${item.id}`}>
-                <button className="button">Edit</button>
+            <div className="itemListButtons">
+              <Link to={`edit/${item.id}`} className="noUnderline">
+                <button className="button edit">Edit</button>
               </Link>
-              <button className="button" onClick={() => handelDelete(item.id)}>
+              <button
+                className="button delete"
+                onClick={() => handelDelete(item.id)}
+              >
                 Delete
               </button>
             </div>

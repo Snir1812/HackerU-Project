@@ -1,0 +1,46 @@
+.cartDiv {
+  width: 200px;
+  min-height: 100px;
+  /* border: 1px solid black; */
+  background: rgb(237, 167, 161);
+  position: fixed;
+  top: 100px;
+  text-align: center;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+}
+.cartItemList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cartItemDiv {
+  width: 190px;
+  padding: 0 5px;
+  font-size: 16px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+}
+.cartItem {
+  height: 20px;
+  width: 190px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.cartItemButton {
+  height: 30px;
+  width: 30px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: none;
+  background: none;
+}

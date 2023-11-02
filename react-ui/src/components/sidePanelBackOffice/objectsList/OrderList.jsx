@@ -55,7 +55,7 @@ const OrderList = () => {
     <div className="listPage">
       <h3>Orders List</h3>
       <Link to="new">
-        <button>Add new order</button>
+        <button className="newButton">Add new order</button>
       </Link>
       <div className="list">
         <div className="itemListUp">ID</div>
@@ -74,11 +74,14 @@ const OrderList = () => {
             {/* Format the date */}
             <div className="itemList">{mapOrderStatus(item.orderStatus)}</div>
             <div className="itemList">{item.totalPrice}</div>
-            <div className="itemList">
-              <Link to={`edit/${item.id}`}>
-                <button className="button">Edit</button>
+            <div className="itemListButtons">
+              <Link to={`edit/${item.id}`} className="noUnderline">
+                <button className="button edit">Edit</button>
               </Link>
-              <button className="button" onClick={() => handelDelete(item.id)}>
+              <button
+                className="button delete"
+                onClick={() => handelDelete(item.id)}
+              >
                 Delete
               </button>
             </div>
