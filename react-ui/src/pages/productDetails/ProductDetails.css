@@ -3,24 +3,73 @@
   align-items: center;
   justify-content: center;
   min-height: 74vh;
+  /* font-size: 16px; */
 }
 .detailsDiv {
   display: flex;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 1px solid black;
+  border-radius: 20px;
   min-height: 600px;
-  width: 300px;
+  width: 500px;
+  padding: 10px;
+  margin-bottom: 20px;
+  gap: 0.3rem;
+  background: rgb(237, 167, 161);
 }
 .detailsItem {
   display: flex;
   align-items: center;
-  height: 50px;
-  border: 1px solid black;
-
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  min-height: 50px;
+  /* border: 1px solid black; */
+  font-size: 14px;
   /* width: 100%; */
 }
 .detailsImage {
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
+  border: 1px solid rgba(0, 0, 0, 0.073);
+  border-radius: 10px;
+}
+.propDescription {
+  font-size: 22px;
+  font-weight: 500;
+}
+.detailsButtonsDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.detailsButton {
+  border-radius: 15px;
+  border: 1px solid black;
+}
+.quantityControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quantity {
+  border: 1px solid black;
+  padding: 0 5px;
+}
+.quantityButton {
+  border: none;
+  background: none;
+  font-size: 20px;
+}
+.reviewDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.205);
+  padding: 0 10px;
+  border-radius: 10px;
 }

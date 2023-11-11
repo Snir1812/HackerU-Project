@@ -20,7 +20,7 @@ const UserForm = () => {
 
   const navigate = useNavigate();
 
-  const Admin = localStorage.getItem("site-token-type") === "Admin";
+  const admin = localStorage.getItem("site-token-type") === "Admin";
 
   useEffect(() => {
     if (id) {
@@ -38,8 +38,21 @@ const UserForm = () => {
           setAddress(item.address);
           setPhoneNumber(item.phoneNumber);
         })
-        .catch((ex) => {
-          setApiError(ex.response ? ex.response.data : "An error occurred");
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            const errorResponse = error.response.data;
+            if (errorResponse.errors) {
+              const errorMessages = Object.values(errorResponse.errors);
+              const allErrors = errorMessages.flat();
+              setApiError(allErrors.join(" "));
+            } else if (errorResponse.message) {
+              setApiError(errorResponse.message);
+            } else {
+              setApiError("An error occurred");
+            }
+          } else {
+            setApiError("An error occurred");
+          }
         });
     }
   }, [id]);
@@ -51,18 +64,18 @@ const UserForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !firstName ||
-      !lastName ||
-      !email ||
-      !userName ||
-      !password ||
-      !address ||
-      !phoneNumber
-    ) {
-      setApiError("Please fill out all required fields");
-      return;
-    }
+    // if (
+    //   !firstName ||
+    //   !lastName ||
+    //   !email ||
+    //   !userName ||
+    //   !password ||
+    //   !address ||
+    //   !phoneNumber
+    // ) {
+    //   setApiError("Please fill out all required fields");
+    //   return;
+    // }
 
     // Convert type to a number
     const typeNumber = parseInt(type, 10);
@@ -88,8 +101,21 @@ const UserForm = () => {
         console.log(res.data);
         navigate(-1);
       })
-      .catch((ex) => {
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
   };
 
@@ -100,7 +126,7 @@ const UserForm = () => {
 
   return (
     <div className="generalPage flex-column">
-      <h2>User Form</h2>
+      <h3>User Form</h3>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">First Name</div>
@@ -118,7 +144,7 @@ const UserForm = () => {
             onChange={(e) => setLastName(e.target.value)}
           />
         </div>
-        {Admin && (
+        {admin && (
           <div className="formItem">
             <div className="formLabel">Type</div>
             <select value={type} onChange={(e) => setType(e.target.value)}>

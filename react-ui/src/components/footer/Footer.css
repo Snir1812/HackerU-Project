@@ -9,19 +9,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 .iconFooter {
-  font-size: 40px;
+  font-size: 35px;
   color: black;
   border: 1px solid rgba(0, 0, 0, 0.239);
   border-radius: 20px;
-  padding: 5px;
+  padding: 3px;
 }
 .iconFooter:hover {
-  font-size: 40px;
+  font-size: 35px;
   color: rgba(0, 0, 0, 0.699);
   border: 1px solid rgba(0, 0, 0, 0.239);
   border-radius: 20px;
-  padding: 5px;
+  padding: 4px;
 }

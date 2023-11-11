@@ -28,8 +28,21 @@ const OrderForm = () => {
             setOrderItems(item.orderItems);
           }
         })
-        .catch((ex) => {
-          setApiError(ex.response ? ex.response.data : "An error occurred");
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            const errorResponse = error.response.data;
+            if (errorResponse.errors) {
+              const errorMessages = Object.values(errorResponse.errors);
+              const allErrors = errorMessages.flat();
+              setApiError(allErrors.join(" "));
+            } else if (errorResponse.message) {
+              setApiError(errorResponse.message);
+            } else {
+              setApiError("An error occurred");
+            }
+          } else {
+            setApiError("An error occurred");
+          }
         });
     }
   }, [id]);
@@ -41,20 +54,20 @@ const OrderForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    if (!userID || !orderStatus) {
-      setApiError("Please fill out all required fields");
-      return;
-    }
+    // if (!userID || !orderStatus) {
+    //   setApiError("Please fill out all required fields");
+    //   return;
+    // }
 
     // Check if any of the order items are incomplete
-    const incompleteItems = orderItems.filter(
-      (item) => !item.productID || !item.pricePerItem || item.quantity <= 0
-    );
+    // const incompleteItems = orderItems.filter(
+    //   (item) => !item.productID || !item.pricePerItem || item.quantity <= 0
+    // );
 
-    if (incompleteItems.length > 0) {
-      setApiError("Please fill out all product details");
-      return;
-    }
+    // if (incompleteItems.length > 0) {
+    //   setApiError("Please fill out all product details");
+    //   return;
+    // }
 
     // Filter out the marked items from orderItems
     const updatedOrderItems = orderItems.filter(
@@ -85,8 +98,21 @@ const OrderForm = () => {
         console.log(res.data);
         navigate("../order");
       })
-      .catch((ex) => {
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
 
     // Clear the items marked for deletion
@@ -126,7 +152,7 @@ const OrderForm = () => {
 
   return (
     <>
-      <h2>Order Form</h2>
+      <h3>Order Form</h3>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">User ID</div>

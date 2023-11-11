@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api from "../../utils/api";
 import "./Product.css";
 import "../../pages/General.css";
 import SearchBar from "../../components/searchBar/SearchBar";

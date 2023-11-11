@@ -17,6 +17,8 @@ import Home from "./pages/home/Home";
 import Product from "./pages/product/Product";
 import ProductDetails from "./pages/productDetails/ProductDetails";
 import Footer from "./components/footer/Footer";
+import Welcome from "./pages/backOffice/Welcome";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const expirationTimeToken = localStorage.getItem("site-token-expiration");
@@ -30,6 +32,9 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
+        {" "}
+        <Route path="*" element={<NotFound />} />{" "}
+        {/* Catch-all route for 404 */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<UserForm />} />
         <Route
@@ -55,6 +60,7 @@ function App() {
           <Route path="order" element={<OrderList />} />
           <Route path="order/new" element={<OrderForm />} />
           <Route path="order/edit/:id" element={<OrderForm />} />
+          <Route path="welcome" element={<Welcome />} />
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="/products/:categoryID" element={<Product />} />

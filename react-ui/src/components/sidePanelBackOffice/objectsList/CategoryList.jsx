@@ -35,7 +35,7 @@ const CategoryList = () => {
   return (
     <div className="listPage">
       <h3>Categories List</h3>
-      <Link to="new">
+      <Link to="new" className="newButtonDiv">
         <button className="newButton">Add new category</button>
       </Link>
       <div className="list">

@@ -198,22 +198,36 @@ namespace API.Controllers
 		[HttpDelete("{id:int}")]
 		public IActionResult Delete(int id)
 		{
-			if (id == null)
+			if (id <= 0)
 			{
-				return BadRequest();
+				return BadRequest("Invalid order ID.");
 			}
 
-			var exists = _orderRepo.FindByCondition(o => o.ID == id).Any();
+			var order = _orderRepo.FindByCondition(o => o.ID == id)
+				.Include(o => o.OrderItems) // Include order items related to the order
+				.FirstOrDefault();
 
-			if (!exists)
+			if (order == null)
 			{
-				return NotFound();
+				return NotFound("Order not found.");
 			}
 
-			var order = _orderRepo.FindByCondition(p => p.ID == id).FirstOrDefault();
+			// Restore product stock quantities
+			foreach (var orderItem in order.OrderItems)
+			{
+				var product = _productRepo.FindByCondition(p => p.ID == orderItem.ProductID).FirstOrDefault();
+				if (product != null)
+				{
+					product.StockQuantity += orderItem.Quantity;
+					_productRepo.Update(product);
+				}
+			}
 
+			// Delete the order
 			_orderRepo.Delete(order);
+
 			return NoContent();
 		}
+
 	}
 }

@@ -5,36 +5,38 @@ import api from "../../utils/api";
 
 const Cart = () => {
   const [cartData, setCartData] = useState([]);
-  const [userID, setUserID] = useState(""); // Assuming you have the userID in state
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [userID, setUserID] = useState("");
+  const [apiError, setApiError] = useState("");
 
   useEffect(() => {
     const storedCartData = JSON.parse(localStorage.getItem("cart")) || [];
-    // console.log(storedCartData);
     const storedUserID = localStorage.getItem("site-token-userID") || "";
-    // console.log(storedUserID);
     setCartData(storedCartData);
     setUserID(storedUserID);
   }, []);
 
   const removeFromCart = (productId) => {
-    // Find the index of the item to remove in the cartData array
-    const indexToRemove = cartData.findIndex((item) => item.id === productId);
+    const updatedCart = cartData.filter((item) => item.id !== productId);
+    updateCart(updatedCart);
+  };
 
-    if (indexToRemove !== -1) {
-      // Create a copy of the cart data, remove the item at the found index, and update local storage
-      const updatedCart = [...cartData];
-      updatedCart.splice(indexToRemove, 1);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+  const updateQuantity = (productId, newQuantity) => {
+    const updatedCart = cartData.map((item) => {
+      if (item.id === productId) {
+        return { ...item, quantity: newQuantity };
+      }
+      return item;
+    });
+    updateCart(updatedCart);
+  };
 
-      // Update the cart data in the component state
-      setCartData(updatedCart);
-    }
+  const updateCart = (updatedCart) => {
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCartData(updatedCart);
   };
 
   const handleOrder = () => {
     if (cartData.length === 0) {
-      // Check if the cart is empty and provide feedback to the user
       setApiError(
         "Your cart is empty. Add items to your cart before placing an order"
       );
@@ -52,11 +54,31 @@ const Cart = () => {
       .post("Order", orderData)
       .then((res) => {
         console.log(res.data);
+
+        // Remove the cart from local storage
         localStorage.removeItem("cart");
+
+        // Clear the cart data in the component state
+        setCartData([]);
+
+        // Reload the page or perform any other necessary actions
         window.location.reload();
       })
-      .catch((ex) => {
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
   };
 
@@ -72,9 +94,21 @@ const Cart = () => {
               <span className="cartItem"> {item.productName}</span>
               <div>
                 <span className="cartItem"> {item.pricePerItem}$</span>
+                <button
+                  className="quantityButton"
+                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                >
+                  -
+                </button>
                 <span className="cartItem"> {item.quantity}</span>
                 <button
-                  className="cartItemButton"
+                  className="quantityButton"
+                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                >
+                  +
+                </button>
+                <button
+                  className="cartRemoveButton"
                   onClick={() => removeFromCart(item.id)}
                 >
                   <AiOutlineClose />
@@ -84,7 +118,11 @@ const Cart = () => {
           ))
         )}
       </div>
-      {cartData.length !== 0 && <button onClick={handleOrder}>To order</button>}
+      {cartData.length !== 0 && (
+        <button className="cartOrderButton" onClick={handleOrder}>
+          To order
+        </button>
+      )}
       {apiError && <p className="error">{apiError}</p>}
     </div>
   );

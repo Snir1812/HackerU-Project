@@ -60,15 +60,15 @@ const Header = () => {
         </NavLink>
       )}
       {tokenType === "Admin" && (
-        <NavLink to="/backoffice" className="headerLink">
+        <NavLink to="/backoffice/welcome" className="headerLink">
           Back office
         </NavLink>
       )}
       <button className="cartBtnDiv" onClick={toggleCart}>
         <BsCartDash className="cartBtn" />
-        {cartItemCount > 0 && (
+        {/* {cartItemCount > 0 && (
           <span className="cartBadge">{cartItemCount}</span>
-        )}
+        )} */}
       </button>
       {isCartOpen && <Cart />}
     </div>

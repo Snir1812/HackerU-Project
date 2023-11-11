@@ -15,8 +15,13 @@ const ReviewForm = () => {
   const [apiError, setApiError] = useState(""); // Add API error state
 
   const navigate = useNavigate();
+  const admin = localStorage.getItem("site-token-type") === "Admin";
+  const userIDFromTheToken = localStorage.getItem("site-token-userID");
 
   useEffect(() => {
+    if (!userIDFromTheToken) {
+      navigate("/login");
+    }
     if (id) {
       api
         .get(`review/${id}`)
@@ -28,8 +33,21 @@ const ReviewForm = () => {
           setReviewText(item.reviewText);
           setRating(item.rating);
         })
-        .catch((ex) => {
-          setApiError(ex.response ? ex.response.data : "An error occurred");
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            const errorResponse = error.response.data;
+            if (errorResponse.errors) {
+              const errorMessages = Object.values(errorResponse.errors);
+              const allErrors = errorMessages.flat();
+              setApiError(allErrors.join(" "));
+            } else if (errorResponse.message) {
+              setApiError(errorResponse.message);
+            } else {
+              setApiError("An error occurred");
+            }
+          } else {
+            setApiError("An error occurred");
+          }
         });
     }
   }, [id]);
@@ -50,10 +68,10 @@ const ReviewForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    if (!productID || !userID || !reviewText || !rating) {
-      setApiError("Please fill out all required fields");
-      return;
-    }
+    // if (!productID || !userID || !reviewText || !rating) {
+    //   setApiError("Please fill out all required fields");
+    //   return;
+    // }
 
     const newItem = {
       id: id || 0,
@@ -72,14 +90,27 @@ const ReviewForm = () => {
         console.log(res.data);
         navigate("../review");
       })
-      .catch((ex) => {
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
   };
 
   return (
     <>
-      <h2>Review Form</h2>
+      <h3>Review Form</h3>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Product ID</div>

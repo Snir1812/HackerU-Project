@@ -23,8 +23,21 @@ const CategoryForm = () => {
           setName(item.name);
           setDescription(item.description);
         })
-        .catch((ex) => {
-          setApiError(ex.response ? ex.response.data : "An error occurred");
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            const errorResponse = error.response.data;
+            if (errorResponse.errors) {
+              const errorMessages = Object.values(errorResponse.errors);
+              const allErrors = errorMessages.flat();
+              setApiError(allErrors.join(" "));
+            } else if (errorResponse.message) {
+              setApiError(errorResponse.message);
+            } else {
+              setApiError("An error occurred");
+            }
+          } else {
+            setApiError("An error occurred");
+          }
         });
     }
   }, [id]);
@@ -36,10 +49,10 @@ const CategoryForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !description) {
-      setApiError("Please fill out all required fields");
-      return;
-    }
+    // if (!name || !description) {
+    //   setApiError("Please fill out all required fields");
+    //   return;
+    // }
 
     const newItem = {
       id: id || 0,
@@ -56,14 +69,27 @@ const CategoryForm = () => {
         console.log(res.data);
         navigate("../category");
       })
-      .catch((ex) => {
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
   };
 
   return (
     <>
-      <h2>Category Form</h2>
+      <h3>Category Form</h3>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Name</div>

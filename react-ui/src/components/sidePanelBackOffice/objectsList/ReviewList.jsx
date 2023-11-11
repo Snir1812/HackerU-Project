@@ -40,7 +40,7 @@ const ReviewList = () => {
   return (
     <div className="listPage">
       <h3>Reviews List</h3>
-      <Link to="new">
+      <Link to="new" className="newButtonDiv">
         <button className="newButton">Add new review</button>
       </Link>
       <div className="list">

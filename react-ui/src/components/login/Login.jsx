@@ -28,10 +28,10 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      setApiError("Please fill out all required fields");
-      return;
-    }
+    // if (!username || !password) {
+    //   setApiError("Please fill out all required fields");
+    //   return;
+    // }
 
     const loginData = {
       username,
@@ -53,9 +53,23 @@ const Login = () => {
           setApiError(`could not login ${result.status}`);
         }
       })
-      .catch((ex) => {
+      .catch((error) => {
         localStorage.setItem("site-token", "");
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
   };
 
@@ -66,21 +80,28 @@ const Login = () => {
   return (
     <div className="generalPage">
       <form onSubmit={handleSubmit} className="loginForm">
-        <div className="fs-2 fw-medium">Log In</div>
+        <div className="fs-3">Log In</div>
         <div className="formItem">
           <label>Username :</label>
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
+          <input
+            className="formInput"
+            type="text"
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
         <div className="formItem">
           <label>Password :</label>
           <input
+            className="formInput"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="buttonsDiv">
-          <button type="submit">Login</button>
-          <button type="button" onClick={handleSignup}>
+          <button type="submit" className="loginButton">
+            Login
+          </button>
+          <button type="button" className="loginButton" onClick={handleSignup}>
             Signup
           </button>
         </div>

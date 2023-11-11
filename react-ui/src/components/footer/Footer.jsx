@@ -10,7 +10,7 @@ import { GrLinkedin } from "react-icons/gr";
 const Footer = () => {
   return (
     <div className="footer">
-      <ul className="iconsList">
+      <div className="iconsList">
         <a href="https://www.facebook.com/profile.php?id=100001236386517">
           <BsFacebook className="iconFooter" />
         </a>
@@ -26,7 +26,7 @@ const Footer = () => {
         <a href="https://www.linkedin.com/in/snir-agi-222bb2233/">
           <GrLinkedin className="iconFooter" />
         </a>
-      </ul>
+      </div>
     </div>
   );
 };

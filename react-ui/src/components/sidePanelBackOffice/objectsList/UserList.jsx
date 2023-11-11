@@ -42,7 +42,7 @@ const UserList = () => {
   return (
     <div className="listPage">
       <h3>Users List</h3>
-      <Link to="new">
+      <Link to="new" className="newButtonDiv">
         <button className="newButton">Add new user</button>
       </Link>
       <div className="list">
@@ -57,32 +57,32 @@ const UserList = () => {
         <div className="itemListUp">Phone Number</div>
         <div className="itemListUp">Actions</div>
       </div>
-      <div>
-        {items.map((item) => (
-          <div className="list">
-            <div className="itemList">{item.id}</div>
-            <div className="itemList">{item.firstName}</div>
-            <div className="itemList">{item.lastName}</div>
-            <div className="itemList">{userType(item.type)}</div>
-            <div className="itemList">{item.email}</div>
-            <div className="itemList">{item.userName}</div>
-            <div className="itemList">{item.password}</div>
-            <div className="itemList">{item.address}</div>
-            <div className="itemList">{item.phoneNumber}</div>
-            <div className="itemListButtons">
-              <Link to={`edit/${item.id}`} className="noUnderline">
-                <button className="button edit">Edit</button>
-              </Link>
-              <button
-                className="button delete"
-                onClick={() => handelDelete(item.id)}
-              >
-                Delete
-              </button>
-            </div>
+      {/* <div> */}
+      {items.map((item) => (
+        <div className="list">
+          <div className="itemList">{item.id}</div>
+          <div className="itemList">{item.firstName}</div>
+          <div className="itemList">{item.lastName}</div>
+          <div className="itemList">{userType(item.type)}</div>
+          <div className="itemList">{item.email}</div>
+          <div className="itemList">{item.userName}</div>
+          <div className="itemList">{item.password}</div>
+          <div className="itemList">{item.address}</div>
+          <div className="itemList">{item.phoneNumber}</div>
+          <div className="itemListButtons">
+            <Link to={`edit/${item.id}`} className="noUnderline">
+              <button className="button edit">Edit</button>
+            </Link>
+            <button
+              className="button delete"
+              onClick={() => handelDelete(item.id)}
+            >
+              Delete
+            </button>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
+      {/* </div> */}
     </div>
   );
 };

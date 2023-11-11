@@ -4,6 +4,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 0.4rem;
+  margin-bottom: 30px;
 }
 .formItem {
   display: flex;
@@ -18,7 +19,7 @@
   gap: 0.5rem;
 }
 .orderItem {
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.11);
   display: flex;
   gap: 0.5rem;
   padding: 10px;

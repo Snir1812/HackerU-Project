@@ -1,7 +1,7 @@
 .cartDiv {
-  width: 200px;
+  width: 300px;
   min-height: 100px;
-  /* border: 1px solid black; */
+  border: 1px solid black;
   background: rgb(237, 167, 161);
   position: fixed;
   top: 100px;
@@ -15,13 +15,13 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.2rem;
 }
 .cartItemDiv {
-  width: 190px;
+  width: 290px;
   padding: 0 5px;
   font-size: 16px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,13 +29,14 @@
   gap: 0;
 }
 .cartItem {
-  height: 20px;
-  width: 190px;
+  min-height: 20px;
+  font-size: 15px;
+  width: 290px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.cartItemButton {
+.cartRemoveButton {
   height: 30px;
   width: 30px;
   overflow: hidden;
@@ -43,4 +44,12 @@
   text-overflow: ellipsis;
   border: none;
   background: none;
+}
+.cartOrderButton {
+  height: 30px;
+  font-size: 18px;
+  border: none;
+  background: rgba(255, 255, 255, 0.397);
+  border-radius: 15px;
+  padding: 0 10px;
 }

@@ -54,7 +54,7 @@ const OrderList = () => {
   return (
     <div className="listPage">
       <h3>Orders List</h3>
-      <Link to="new">
+      <Link to="new" className="newButtonDiv">
         <button className="newButton">Add new order</button>
       </Link>
       <div className="list">

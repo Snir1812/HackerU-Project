@@ -4,9 +4,10 @@
   justify-content: center;
   flex-direction: column;
   border: 1px solid black;
-  height: 350px;
-  width: 250px;
-  gap: 0.5rem;
+  border-radius: 10px;
+  height: 300px;
+  width: 230px;
+  gap: 0.8rem;
 }
 .formItem {
   display: flex;
@@ -15,9 +16,24 @@
   justify-content: center;
   text-align: center;
 }
+.formInput {
+  height: 25px;
+  width: 140px;
+  border: 1px solid rgba(0, 0, 0, 0.658);
+  border-radius: 10px;
+}
 .buttonsDiv {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+.loginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 25px;
+  width: 60px;
+  border: 1px solid rgba(0, 0, 0, 0.658);
+  border-radius: 10px;
 }

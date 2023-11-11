@@ -15,27 +15,39 @@
   gap: 0.5rem;
 }
 .newButton {
+  height: 20px;
+  min-width: 120px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(85, 206, 85);
   border: 1px solid black;
   border-radius: 10px;
+}
+.newButtonDiv {
+  text-decoration: none;
 }
 .itemListUp {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  height: 40px;
+  width: 100px;
+  /* height: 40px; */
   height: 45px;
-  font-size: 20px;
+  font-size: 16px;
   background: yellow;
   border: 1px solid rgba(0, 0, 0, 0.167);
 }
 
 .itemList {
-  width: 150px;
+  width: 100px;
   height: 30px;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid rgba(0, 0, 0, 0.167);
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -47,9 +59,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  width: 150px;
+  width: 100px;
   height: 30px;
-  font-size: 16px;
+  /* font-size: 16px; */
   border: 1px solid rgba(0, 0, 0, 0.167);
   overflow: hidden;
   white-space: nowrap;
@@ -59,15 +71,15 @@
   border-radius: 15px;
 }
 .productImage {
-  width: 100px;
-  height: 100px;
-  margin: 0 25px 0 25px;
+  width: 80px;
+  height: 80px;
+  margin: 0 10px;
   border: 1px solid rgba(0, 0, 0, 0.167);
 }
 .button {
-  width: 60px;
-  height: 20px;
-  font-size: medium;
+  width: 40px;
+  height: 15px;
+  font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;

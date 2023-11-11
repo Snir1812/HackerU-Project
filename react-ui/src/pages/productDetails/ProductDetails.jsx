@@ -1,54 +1,128 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import api from "../../utils/api";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProductData } from "../../context/ProductDataContext";
 import "./ProductDetails.css";
+import React, { useState } from "react";
 
 const ProductDetails = () => {
   const { productID } = useParams();
-  // const [item, setItem] = useState({});
-  const [loading, setLoading] = useState(true); // Added a loading state
-
+  const [quantity, setQuantity] = useState(1); // Initialize quantity with 1
   const productData = useProductData();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   api
-  //     .get(`Product/${productID}`)
-  //     .then((result) => {
-  //       console.log(result.data);
-  //       setItem(result.data);
-  //       setLoading(false); // Set loading to false when data is available
-  //     })
-  //     .catch((ex) => {
-  //       console.log(ex);
-  //       setLoading(false); // Set loading to false in case of an error
-  //     });
-  // }, [productID]);
-
-  // Find the product with the matching ID in the context
-  // Ensure productData is not null before using it
   if (!productData) {
-    return <p>Loading...</p>; // Or handle the loading state in another way
+    return <p>Loading...</p>;
   }
 
-  // Find the product with the matching ID in the context
   const item = productData.find((item) => item.product.id == productID);
+  console.log(item);
+  const addToCart = (item, quantity) => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    const existingProduct = cart.find(
+      (cartItem) => cartItem.productID === item.product.id
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity = (existingProduct.quantity || 1) + quantity;
+    } else {
+      cart.push({
+        productID: item.product.id,
+        productName: item.product.productName,
+        pricePerItem: item.product.price,
+        quantity: quantity,
+      });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+  };
+
+  const formatReviewDate = (dateStr) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    };
+
+    const formattedDate = new Date(dateStr).toLocaleDateString(
+      "en-US",
+      options
+    );
+
+    return formattedDate;
+  };
 
   return (
     <div className="detailsPage">
       {item ? (
         <div className="detailsDiv">
-          <div className="detailsItem">{item.product.id}</div>
-          <div className="detailsItem">{item.product.productName}</div>
-          <div className="detailsItem">{item.product.categoryID}</div>
-          <div className="detailsItem">{item.product.description}</div>
-          <div className="detailsItem">{item.product.price}</div>
-          <div className="detailsItem">{item.product.stockQuantity}</div>
           <img
             src={`data:image/jpeg;base64,${item.imageBase64}`}
             alt={item.product.productName}
             className="detailsImage"
           />
+          <div className="detailsItem">{item.product.productName}</div>
+          <div className="detailsItem">
+            <span className="propDescription">Stock quantity:</span>{" "}
+            {item.product.stockQuantity}
+          </div>
+          <div className="detailsItem">
+            <span className="propDescription">Price:</span> {item.product.price}
+            $
+          </div>
+          <div className="detailsItem">
+            <span className="propDescription">Description:</span>{" "}
+            {item.product.description}
+          </div>
+          <div className="detailsButtonsDiv">
+            <button
+              className="detailsButton"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Back
+            </button>
+            <button
+              className="detailsButton"
+              onClick={() => addToCart(item, quantity)}
+            >
+              Add To Cart
+            </button>
+            <div className="quantityControls">
+              <button
+                className="quantityButton"
+                onClick={() => setQuantity(Math.max(quantity - 1, 1))}
+              >
+                -
+              </button>
+              <span className="quantity">{quantity}</span>
+              <button
+                className="quantityButton"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                +
+              </button>
+            </div>
+          </div>{" "}
+          <div>
+            {item.product.reviews ? (
+              <div className="detailsItem">
+                <div className="propDescription">Reviews:</div>
+                {item.product.reviews.map((review, index) => (
+                  <div className="reviewDiv" key={index}>
+                    <span>{review.reviewText}</span>
+                    <span>Rating : {review.rating}</span>
+                    <span>Date : {formatReviewDate(review.reviewDate)}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p>No reviews available</p>
+            )}
+          </div>
         </div>
       ) : (
         <p>Product not found</p>

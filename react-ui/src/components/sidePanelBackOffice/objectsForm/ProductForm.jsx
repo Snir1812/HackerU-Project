@@ -31,8 +31,21 @@ const ProductForm = () => {
           setStockQuantity(item.product.stockQuantity);
           setImageFile(item.imageBase64);
         })
-        .catch((ex) => {
-          setApiError(ex.response ? ex.response.data : "An error occurred");
+        .catch((error) => {
+          if (error.response && error.response.data) {
+            const errorResponse = error.response.data;
+            if (errorResponse.errors) {
+              const errorMessages = Object.values(errorResponse.errors);
+              const allErrors = errorMessages.flat();
+              setApiError(allErrors.join(" "));
+            } else if (errorResponse.message) {
+              setApiError(errorResponse.message);
+            } else {
+              setApiError("An error occurred");
+            }
+          } else {
+            setApiError("An error occurred");
+          }
         });
     }
   }, [id]);
@@ -44,17 +57,17 @@ const ProductForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      !productName ||
-      !categoryID ||
-      !description ||
-      !price ||
-      !stockQuantity ||
-      !imageFile
-    ) {
-      setApiError("Please fill out all required fields");
-      return;
-    }
+    // if (
+    //   !productName ||
+    //   !categoryID ||
+    //   !description ||
+    //   !price ||
+    //   !stockQuantity ||
+    //   !imageFile
+    // ) {
+    //   setApiError("Please fill out all required fields");
+    //   return;
+    // }
 
     const formData = new FormData();
 
@@ -73,14 +86,27 @@ const ProductForm = () => {
         console.log(res.data);
         navigate("../product");
       })
-      .catch((ex) => {
-        setApiError(ex.response ? ex.response.data : "An error occurred");
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const errorResponse = error.response.data;
+          if (errorResponse.errors) {
+            const errorMessages = Object.values(errorResponse.errors);
+            const allErrors = errorMessages.flat();
+            setApiError(allErrors.join(" "));
+          } else if (errorResponse.message) {
+            setApiError(errorResponse.message);
+          } else {
+            setApiError("An error occurred");
+          }
+        } else {
+          setApiError("An error occurred");
+        }
       });
   };
 
   return (
     <>
-      <h2>Product Form</h2>
+      <h3>Product Form</h3>
       <div className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Product Name</div>

@@ -1,7 +1,7 @@
 .sidePanel {
   /* position: fixed; */
   right: 0;
-  width: 250px;
+  width: 180px;
   height: 71vh;
   background: rgb(237, 167, 161);
   display: flex;
@@ -17,8 +17,8 @@
 .item {
   /* border: 1px solid black; */
   border-radius: 20px;
-  width: 100px;
-  /* height: 30px; */
+  width: 90px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;

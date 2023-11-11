@@ -31,7 +31,7 @@ const ProductList = () => {
   return (
     <div className="listPage">
       <h3>Products List</h3>
-      <Link to="new">
+      <Link to="new" className="newButtonDiv">
         <button className="newButton">Add new product</button>
       </Link>
       <div className="list">
