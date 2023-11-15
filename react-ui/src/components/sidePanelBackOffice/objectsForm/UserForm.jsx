@@ -7,7 +7,6 @@ import "../../../pages/General.css";
 
 const UserForm = () => {
   const { id } = useParams();
-  //const [id, setId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [type, setType] = useState("");
@@ -16,7 +15,7 @@ const UserForm = () => {
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
 
@@ -64,27 +63,13 @@ const UserForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    // if (
-    //   !firstName ||
-    //   !lastName ||
-    //   !email ||
-    //   !userName ||
-    //   !password ||
-    //   !address ||
-    //   !phoneNumber
-    // ) {
-    //   setApiError("Please fill out all required fields");
-    //   return;
-    // }
-
-    // Convert type to a number
     const typeNumber = parseInt(type, 10);
 
     const newItem = {
       id: id || 0,
       firstName,
       lastName,
-      type: isNaN(typeNumber) ? 0 : typeNumber, // Use 0 as the default if the conversion fails
+      type: isNaN(typeNumber) ? 0 : typeNumber,
       email,
       userName,
       password,
@@ -94,11 +79,8 @@ const UserForm = () => {
 
     const verb = id ? "put" : "post";
 
-    console.log(newItem);
-
     api[verb]("User", newItem)
       .then((res) => {
-        console.log(res.data);
         navigate(-1);
       })
       .catch((error) => {
@@ -204,7 +186,6 @@ const UserForm = () => {
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
-      {/* Display API error message */}
     </div>
   );
 };

@@ -22,7 +22,6 @@ const ProductList = () => {
     api
       .get("Product")
       .then((result) => {
-        console.log(result.data);
         setItems(result.data);
       })
       .catch((ex) => console.log(ex));
@@ -46,7 +45,7 @@ const ProductList = () => {
       </div>
       <div>
         {items.map((item) => (
-          <div className="list">
+          <div className="list" key={item.product.id}>
             <div className="itemList">{item.product.id}</div>
             <div className="itemList">{item.product.productName}</div>
             <div className="itemList">{item.product.categoryID}</div>
@@ -54,7 +53,7 @@ const ProductList = () => {
             <div className="itemList">{item.product.price}</div>
             <div className="itemList">{item.product.stockQuantity}</div>
             <img
-              src={`data:image/jpeg;base64,${item.imageBase64}`} // Adjust the format accordingly
+              src={`data:image/jpeg;base64,${item.imageBase64}`}
               alt={item.productName}
               className="productImage"
             />

@@ -1,6 +1,5 @@
 import React from "react";
 import "./Footer.css";
-import { useSelector } from "react-redux";
 import { BsFacebook } from "react-icons/bs";
 import { IoLogoWhatsapp } from "react-icons/io";
 import { AiFillTwitterCircle } from "react-icons/ai";

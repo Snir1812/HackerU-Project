@@ -12,6 +12,7 @@ const Products = () => {
 
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState("default");
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -23,19 +24,31 @@ const Products = () => {
       if (categoryID === "all") {
         setProducts(productData);
       } else {
-        // const productFromContext = productData.filter(
-        //   (item) => item.product.categoryID == categoryID
-        // );
         setProducts(
           productData.filter((item) => item.product.categoryID == categoryID)
         );
       }
     }
-  }, [categoryID, productData]); // Make sure to include productData in dependencies
+  }, [categoryID, productData]);
 
-  const filteredProducts = products.filter((item) =>
-    item.product.productName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = products
+    .filter((item) =>
+      item.product.productName.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      switch (sortBy) {
+        case "lowToHigh":
+          return a.product.price - b.product.price;
+        case "highToLow":
+          return b.product.price - a.product.price;
+        case "aToZ":
+          return a.product.productName.localeCompare(b.product.productName);
+        case "zToA":
+          return b.product.productName.localeCompare(a.product.productName);
+        default:
+          return 0;
+      }
+    });
 
   const addToCart = (item) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -60,7 +73,23 @@ const Products = () => {
 
   return (
     <div className="generalPage">
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <div className="d-flex align-items-center justify-content-center flex-row gap-3">
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <label className="sortLabel">
+          Sort by :
+          <select
+            className="sortInput"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
+            <option value="default">Default</option>
+            <option value="lowToHigh">Price: Low to High</option>
+            <option value="highToLow">Price: High to Low</option>
+            <option value="aToZ">Name: A to Z</option>
+            <option value="zToA">Name: Z to A</option>
+          </select>
+        </label>
+      </div>
       <div className="cardList">
         {filteredProducts.map((item) => (
           <div className="cardDiv" key={item.product.id}>

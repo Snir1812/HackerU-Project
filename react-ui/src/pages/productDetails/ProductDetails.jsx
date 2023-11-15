@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 const ProductDetails = () => {
   const { productID } = useParams();
-  const [quantity, setQuantity] = useState(1); // Initialize quantity with 1
+  const [quantity, setQuantity] = useState(1);
   const productData = useProductData();
   const navigate = useNavigate();
 
@@ -14,7 +14,6 @@ const ProductDetails = () => {
   }
 
   const item = productData.find((item) => item.product.id == productID);
-  console.log(item);
   const addToCart = (item, quantity) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 

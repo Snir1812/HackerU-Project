@@ -14,7 +14,6 @@ export const ProductDataProvider = ({ children }) => {
     api
       .get(`Product`)
       .then((result) => {
-        // console.log(result.data);
         setProductData(result.data);
       })
       .catch((ex) => console.log(ex));

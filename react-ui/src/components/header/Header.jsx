@@ -4,6 +4,7 @@ import { useCategoryData } from "../../context/CategoryDataContext";
 import { NavLink } from "react-router-dom";
 import Cart from "../cart/Cart";
 import { BsCartDash } from "react-icons/bs";
+import { CiShop } from "react-icons/ci";
 
 const Header = () => {
   const token = localStorage.getItem("site-token");
@@ -30,6 +31,11 @@ const Header = () => {
 
   return (
     <div className="header">
+      <NavLink to="/" className="headerLink">
+        Snir project
+        <CiShop className="fs-1" />
+      </NavLink>
+      <span className="spacer"></span>
       <NavLink to="/" className="headerLink">
         Home
       </NavLink>{" "}
@@ -66,9 +72,6 @@ const Header = () => {
       )}
       <button className="cartBtnDiv" onClick={toggleCart}>
         <BsCartDash className="cartBtn" />
-        {/* {cartItemCount > 0 && (
-          <span className="cartBadge">{cartItemCount}</span>
-        )} */}
       </button>
       {isCartOpen && <Cart />}
     </div>

@@ -8,11 +8,11 @@ import "../../pages/General.css";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [apiError, setApiError] = useState("");
   const nav = useNavigate();
 
   const saveTokenToLocalStorage = (token) => {
-    const expirationTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 hours from now
+    const expirationTime = new Date().getTime() + 24 * 60 * 60 * 1000;
 
     const tokenParts = token.split(".");
     const payload = JSON.parse(atob(tokenParts[1]));
@@ -27,11 +27,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // if (!username || !password) {
-    //   setApiError("Please fill out all required fields");
-    //   return;
-    // }
 
     const loginData = {
       username,
@@ -106,7 +101,6 @@ const Login = () => {
           </button>
         </div>
         {apiError && <p className="error">{apiError}</p>}
-        {/* Display API error message */}
       </form>
     </div>
   );

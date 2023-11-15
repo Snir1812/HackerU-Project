@@ -1,5 +1,4 @@
 .header {
-  /* position: fixed; */
   height: 10vh;
   width: 100%;
   display: flex;
@@ -12,11 +11,17 @@
   margin-bottom: 3vh;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
+.spacer {
+  width: 30px;
+}
 .headerLink {
   text-decoration: none;
   color: black;
   font-size: 20px;
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .cartBtnDiv {
   border: none;

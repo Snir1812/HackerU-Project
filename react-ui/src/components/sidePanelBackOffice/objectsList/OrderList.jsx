@@ -22,22 +22,19 @@ const OrderList = () => {
     api
       .get("Order")
       .then((result) => {
-        console.log(result.data);
         setItems(result.data);
       })
       .catch((ex) => console.log(ex));
   }, []);
 
-  // Function to format UTC date to YYYY-MM-DD
   const formatDate = (utcDate) => {
     const date = new Date(utcDate);
     const year = date.getUTCFullYear();
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
     const day = date.getUTCDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
-  // Function to map orderStatus values to their respective labels
   const mapOrderStatus = (statusValue) => {
     switch (statusValue) {
       case 1:
@@ -67,11 +64,10 @@ const OrderList = () => {
       </div>
       <div>
         {items.map((item) => (
-          <div className="list">
+          <div className="list" key={item.id}>
             <div className="itemList">{item.id}</div>
             <div className="itemList">{item.userID}</div>
             <div className="itemList">{formatDate(item.orderDate)}</div>
-            {/* Format the date */}
             <div className="itemList">{mapOrderStatus(item.orderStatus)}</div>
             <div className="itemList">{item.totalPrice}</div>
             <div className="itemListButtons">

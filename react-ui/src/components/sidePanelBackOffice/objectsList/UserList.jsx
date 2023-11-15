@@ -22,7 +22,6 @@ const UserList = () => {
     api
       .get("User")
       .then((result) => {
-        console.log(result.data);
         setItems(result.data);
       })
       .catch((ex) => console.log(ex));
@@ -57,9 +56,8 @@ const UserList = () => {
         <div className="itemListUp">Phone Number</div>
         <div className="itemListUp">Actions</div>
       </div>
-      {/* <div> */}
       {items.map((item) => (
-        <div className="list">
+        <div className="list" key={item.id}>
           <div className="itemList">{item.id}</div>
           <div className="itemList">{item.firstName}</div>
           <div className="itemList">{item.lastName}</div>
@@ -82,7 +80,6 @@ const UserList = () => {
           </div>
         </div>
       ))}
-      {/* </div> */}
     </div>
   );
 };

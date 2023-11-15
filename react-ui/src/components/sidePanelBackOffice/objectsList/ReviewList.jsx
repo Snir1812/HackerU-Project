@@ -22,17 +22,15 @@ const ReviewList = () => {
     api
       .get("Review")
       .then((result) => {
-        console.log(result.data);
         setItems(result.data);
       })
       .catch((ex) => console.log(ex));
   }, []);
 
-  // Function to format UTC date to YYYY-MM-DD
   const formatDate = (utcDate) => {
     const date = new Date(utcDate);
     const year = date.getUTCFullYear();
-    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0"); // Months are 0-indexed
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
     const day = date.getUTCDate().toString().padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
@@ -54,14 +52,13 @@ const ReviewList = () => {
       </div>
       <div>
         {items.map((item) => (
-          <div className="list">
+          <div className="list" key={item.id}>
             <div className="itemList">{item.id}</div>
             <div className="itemList">{item.productID}</div>
             <div className="itemList">{item.userID}</div>
             <div className="itemList">{item.rating}</div>
             <div className="itemList">{item.reviewText}</div>
             <div className="itemList">{formatDate(item.reviewDate)}</div>{" "}
-            {/* Format the date */}
             <div className="itemListButtons">
               <Link to={`edit/${item.id}`} className="noUnderline">
                 <button className="button edit">Edit</button>

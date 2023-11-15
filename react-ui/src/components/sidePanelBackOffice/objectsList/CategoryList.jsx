@@ -26,7 +26,6 @@ const CategoryList = () => {
     api
       .get("Category")
       .then((result) => {
-        console.log(result.data);
         setItems(result.data);
       })
       .catch((ex) => console.log(ex));
@@ -46,7 +45,7 @@ const CategoryList = () => {
       </div>
       <div>
         {items.map((item) => (
-          <div className="list">
+          <div className="list" key={item.id}>
             <div className="itemList">{item.id}</div>
             <div className="itemList">{item.name}</div>
             <div className="itemList">{item.description}</div>

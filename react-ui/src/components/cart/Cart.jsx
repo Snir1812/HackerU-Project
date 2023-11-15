@@ -53,15 +53,10 @@ const Cart = () => {
     api
       .post("Order", orderData)
       .then((res) => {
-        console.log(res.data);
-
-        // Remove the cart from local storage
         localStorage.removeItem("cart");
 
-        // Clear the cart data in the component state
         setCartData([]);
 
-        // Reload the page or perform any other necessary actions
         window.location.reload();
       })
       .catch((error) => {

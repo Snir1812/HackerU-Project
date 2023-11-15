@@ -6,12 +6,11 @@ import "./Form.css";
 
 const OrderForm = () => {
   const { id } = useParams();
-  //const [id, setId] = useState("");
   const [userID, setUserID] = useState("");
   const [orderStatus, setOrderStatus] = useState(1);
   const [orderItems, setOrderItems] = useState([]);
   const [itemsMarkedForDeletion, setItemsMarkedForDeletion] = useState([]);
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
 
@@ -54,22 +53,6 @@ const OrderForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    // if (!userID || !orderStatus) {
-    //   setApiError("Please fill out all required fields");
-    //   return;
-    // }
-
-    // Check if any of the order items are incomplete
-    // const incompleteItems = orderItems.filter(
-    //   (item) => !item.productID || !item.pricePerItem || item.quantity <= 0
-    // );
-
-    // if (incompleteItems.length > 0) {
-    //   setApiError("Please fill out all product details");
-    //   return;
-    // }
-
-    // Filter out the marked items from orderItems
     const updatedOrderItems = orderItems.filter(
       (item, index) => !itemsMarkedForDeletion.includes(item.id)
     );
@@ -83,19 +66,14 @@ const OrderForm = () => {
 
     const verb = id ? "put" : "post";
 
-    console.log(newItem);
-
-    // If there are items marked for deletion, delete them from the API
     if (itemsMarkedForDeletion.length > 0) {
       itemsMarkedForDeletion.forEach((itemID) => {
-        // console.log(itemID);
-        api.delete(`OrderItem/${itemID}`).catch((ex) => console.log(ex));
+        api.delete(`OrderItem/${itemID}`).catch((ex) => setApiError(ex));
       });
     }
 
     api[verb]("order", newItem)
       .then((res) => {
-        console.log(res.data);
         navigate("../order");
       })
       .catch((error) => {
@@ -115,7 +93,6 @@ const OrderForm = () => {
         }
       });
 
-    // Clear the items marked for deletion
     setItemsMarkedForDeletion([]);
   };
 
@@ -127,13 +104,11 @@ const OrderForm = () => {
 
   const removeOrderItem = (index, item) => {
     if (item.id) {
-      // This is a product from the API, mark it for deletion
       setItemsMarkedForDeletion((prevItems) => [...prevItems, item.id]);
       const updatedItems = [...orderItems];
       updatedItems.splice(index, 1);
       setOrderItems(updatedItems);
     } else {
-      // This is a new product added by the user, just remove it from the state
       const updatedItems = [...orderItems];
       updatedItems.splice(index, 1);
       setOrderItems(updatedItems);
@@ -226,7 +201,6 @@ const OrderForm = () => {
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
-      {/* Display API error message */}
     </>
   );
 };

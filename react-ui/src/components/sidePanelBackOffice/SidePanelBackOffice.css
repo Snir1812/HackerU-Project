@@ -1,5 +1,4 @@
 .sidePanel {
-  /* position: fixed; */
   right: 0;
   width: 180px;
   height: 71vh;
@@ -10,12 +9,9 @@
   align-items: center;
   flex-direction: column;
   gap: 2rem;
-  /* border: 1px solid black; */
-  /* box-shadow: 1px 3px 10px; */
   border-radius: 20px 0px 0px 20px;
 }
 .item {
-  /* border: 1px solid black; */
   border-radius: 20px;
   width: 90px;
   height: 30px;

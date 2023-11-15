@@ -6,10 +6,9 @@ import "./Form.css";
 
 const CategoryForm = () => {
   const { id } = useParams();
-  //const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
 
@@ -49,11 +48,6 @@ const CategoryForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    // if (!name || !description) {
-    //   setApiError("Please fill out all required fields");
-    //   return;
-    // }
-
     const newItem = {
       id: id || 0,
       name,
@@ -62,11 +56,8 @@ const CategoryForm = () => {
 
     const verb = id ? "put" : "post";
 
-    console.log(newItem);
-
     api[verb]("category", newItem)
       .then((res) => {
-        console.log(res.data);
         navigate("../category");
       })
       .catch((error) => {
@@ -115,7 +106,6 @@ const CategoryForm = () => {
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}{" "}
-      {/* Display API error message */}
     </>
   );
 };

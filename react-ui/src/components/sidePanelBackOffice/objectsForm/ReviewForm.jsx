@@ -6,16 +6,14 @@ import "./Form.css";
 
 const ReviewForm = () => {
   const { id } = useParams();
-  //const [id, setId] = useState("");
   const [productID, setProductID] = useState("");
   const [userID, setUserID] = useState("");
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("");
-  const [ratingError, setRatingError] = useState(""); // Add rating error state
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [ratingError, setRatingError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
-  const admin = localStorage.getItem("site-token-type") === "Admin";
   const userIDFromTheToken = localStorage.getItem("site-token-userID");
 
   useEffect(() => {
@@ -68,11 +66,6 @@ const ReviewForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    // if (!productID || !userID || !reviewText || !rating) {
-    //   setApiError("Please fill out all required fields");
-    //   return;
-    // }
-
     const newItem = {
       id: id || 0,
       productID,
@@ -83,11 +76,8 @@ const ReviewForm = () => {
 
     const verb = id ? "put" : "post";
 
-    console.log(newItem);
-
     api[verb]("review", newItem)
       .then((res) => {
-        console.log(res.data);
         navigate("../review");
       })
       .catch((error) => {
@@ -158,7 +148,6 @@ const ReviewForm = () => {
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}
-      {/* Display API error message */}
     </>
   );
 };

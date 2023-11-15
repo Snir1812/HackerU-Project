@@ -1,0 +1,9 @@
+.homePage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 0 150px;
+  margin-bottom: 30px;
+}

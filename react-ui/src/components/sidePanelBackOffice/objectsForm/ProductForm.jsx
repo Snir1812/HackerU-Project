@@ -6,14 +6,13 @@ import "./Form.css";
 
 const ProductForm = () => {
   const { id } = useParams();
-  //const [id, setId] = useState("");
   const [productName, setProductName] = useState("");
   const [categoryID, setCategoryID] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [apiError, setApiError] = useState(""); // Add API error state
+  const [apiError, setApiError] = useState("");
 
   const navigate = useNavigate();
 
@@ -57,18 +56,6 @@ const ProductForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
-    // if (
-    //   !productName ||
-    //   !categoryID ||
-    //   !description ||
-    //   !price ||
-    //   !stockQuantity ||
-    //   !imageFile
-    // ) {
-    //   setApiError("Please fill out all required fields");
-    //   return;
-    // }
-
     const formData = new FormData();
 
     formData.append("id", id || 0);
@@ -83,7 +70,6 @@ const ProductForm = () => {
 
     api[verb]("Product", formData)
       .then((res) => {
-        console.log(res.data);
         navigate("../product");
       })
       .catch((error) => {
@@ -150,7 +136,6 @@ const ProductForm = () => {
         </div>
         <div className="formItem">
           <div className="formLabel">Image</div>
-          {/* {!imageFile && ( */}
           <input
             type="file"
             accept=".jpg, .jpeg, .png, .gif"
@@ -158,10 +143,9 @@ const ProductForm = () => {
               setImageFile(e.target.files[0]);
             }}
           />
-          {/* )} */}
           {imageFile && (
             <img
-              src={`data:image/jpeg;base64,${imageFile}`} // Adjust the format accordingly
+              src={`data:image/jpeg;base64,${imageFile}`}
               alt={productName}
               className="productImage"
             />
@@ -175,7 +159,6 @@ const ProductForm = () => {
         </div>
       </div>
       {apiError && <p className="error">{apiError}</p>}
-      {/* Display API error message */}
     </>
   );
 };
