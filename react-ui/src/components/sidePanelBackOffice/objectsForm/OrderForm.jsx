@@ -68,7 +68,9 @@ const OrderForm = () => {
 
     if (itemsMarkedForDeletion.length > 0) {
       itemsMarkedForDeletion.forEach((itemID) => {
-        api.delete(`OrderItem/${itemID}`).catch((ex) => setApiError(ex));
+        api
+          .delete(`OrderItem/${itemID}`)
+          .catch((ex) => setApiError(ex)); /*Check*/
       });
     }
 

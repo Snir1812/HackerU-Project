@@ -10,8 +10,8 @@ const Home = () => {
         <span>
           I'm snir agi, I studied in HackerU in a course called .NET software
           development, in the course we gained a lot of knowledge from the Full
-          Stack world. In the course we experienced a lot and learned a lot,
-          whether it was small tasks or large projects. This project basically
+          Stack world. In the course we experienced and learned a lot, whether
+          it was small tasks or large projects. This project basically
           summarizes and tells the whole path we went through and everything we
           learned from the world of feature development. I chose to present my
           project in the most realistic way possible, my project is actually an
@@ -23,7 +23,7 @@ const Home = () => {
           My project is actually a full stack project that is based on the
           server side on an API that interfaces with a database and with the
           help of Http requests returns objects that are received on the client
-          side and displayed in a store built using React.
+          side and displayed in a store that built using React.
         </span>
       </div>
       <div className="d-flex align-items-center justify-content-center gap-1 flex-column">
@@ -63,7 +63,8 @@ const Home = () => {
           in local storage, and he is given full access to the site, for example
           placing orders and if he manages access to the back office area , if
           the user is not registered, there is an option of registration (Sign
-          Up).
+          Up), which actually makes a POST request to the API and creates a
+          user.
         </span>
         <span>
           Header, I created a Context that calls the categories once unless
@@ -76,8 +77,11 @@ const Home = () => {
         </span>
         <span>
           Cart is a component that contains an array located in local storage to
-          which products are added with the help of a button located on the
-          product tab and through which the user can place an order on the site.
+          which products are added using a button located on the product tab and
+          through which the user can place an order on the website, the products
+          are passed through the body of the request together with the user's
+          information and with this an order is created with items associated
+          with that user.
         </span>
         <span>
           Search Bar, this is a component found on the Products page, the user
@@ -132,7 +136,7 @@ const Home = () => {
         <span>
           The site was built with deep thought and a lot of investment, whether
           it is in the design or whether it is in the cleanliness of the code,
-          correct and clear writing. I would love to hear good and less good
+          correct and clear writing. I would be happy to hear good and less good
           reviews to appreciated the investment and more than that for
           improvement and learning. Thank you.
         </span>
