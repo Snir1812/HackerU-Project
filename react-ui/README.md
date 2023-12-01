@@ -1,3 +1,9 @@
+להפעלת הפרויקט :
+
+1. יש לפתוח את קובץ הHackerU-Project.sln בvs כדי שהשרת יפעל.
+2. יש להריץ npm start על תקיית react-ui.
+3. את הconnection string יש להטמיע בקובץ appsettings.Development.json שנמצא בתוך קובץ appsettings.json.
+
 פרויקט הגמר שלי - שניר אגי
 
 אני שניר אגי , למדתי באהקריו בקורס .NET פיתוח תוכנה , בקורס רכשנו המון ידע מעולם הFull Stack.
