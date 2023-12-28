@@ -69,6 +69,8 @@ const Products = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Item added to the cart successfully!");
   };
 
   return (

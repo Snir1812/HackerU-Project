@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Form.css";
@@ -12,6 +11,7 @@ const ReviewForm = () => {
   const [rating, setRating] = useState("");
   const [ratingError, setRatingError] = useState("");
   const [apiError, setApiError] = useState("");
+  const [formValid, setFormValid] = useState(false);
 
   const navigate = useNavigate();
   const userIDFromTheToken = localStorage.getItem("site-token-userID");
@@ -41,7 +41,7 @@ const ReviewForm = () => {
             } else if (errorResponse.message) {
               setApiError(errorResponse.message);
             } else {
-              setApiError("An error occurred");
+              setApiError(error.response.data);
             }
           } else {
             setApiError("An error occurred");
@@ -50,21 +50,30 @@ const ReviewForm = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    // Check if all required fields are filled and rating is valid
+    const isValid =
+      productID !== "" &&
+      userID !== "" &&
+      reviewText !== "" &&
+      rating !== "" &&
+      ratingError === "";
+
+    setFormValid(isValid);
+  }, [productID, userID, reviewText, rating, ratingError]);
+
   const handelCancel = () => {
     navigate("../review");
   };
 
-  const validateRating = (value) => {
-    const parsedValue = parseInt(value, 10);
-    if (isNaN(parsedValue) || parsedValue < 1 || parsedValue > 10) {
-      setRatingError("Rating must be a number between 1 and 10");
-    } else {
-      setRatingError("");
-    }
-  };
-
   const handelSubmit = (e) => {
     e.preventDefault();
+
+    // Check if the form is valid
+    if (!formValid) {
+      setApiError("Please fill in all fields correctly before submitting.");
+      return;
+    }
 
     const newItem = {
       id: id || 0,
@@ -75,10 +84,12 @@ const ReviewForm = () => {
     };
 
     const verb = id ? "put" : "post";
+    const action = id ? "updated" : "created";
 
     api[verb]("review", newItem)
       .then((res) => {
         navigate("../review");
+        alert(`Review ${action} successfully`);
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -90,7 +101,7 @@ const ReviewForm = () => {
           } else if (errorResponse.message) {
             setApiError(errorResponse.message);
           } else {
-            setApiError("An error occurred");
+            setApiError(error.response.data);
           }
         } else {
           setApiError("An error occurred");
@@ -101,7 +112,7 @@ const ReviewForm = () => {
   return (
     <>
       <h3>Review Form</h3>
-      <div className="form" onSubmit={handelSubmit}>
+      <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Product ID</div>
           <input
@@ -135,18 +146,17 @@ const ReviewForm = () => {
             value={rating}
             onChange={(e) => {
               setRating(e.target.value);
-              validateRating(e.target.value);
             }}
           />
           {ratingError && <p className="error">{ratingError}</p>}
         </div>
         <div className="buttonsDiv">
-          <button type="submit" onClick={handelSubmit}>
+          <button type="submit" disabled={!formValid}>
             Save
           </button>
           <button onClick={handelCancel}>Cancel</button>
         </div>
-      </div>
+      </form>
       {apiError && <p className="error">{apiError}</p>}
     </>
   );

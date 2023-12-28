@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { Route, BrowserRouter, Navigate, Routes } from "react-router-dom";
 import Header from "./components/header/Header";
 import Protected from "./components/Protected";
 import Login from "./components/login/Login";
@@ -25,16 +25,27 @@ function App() {
   const currentTime = new Date().getTime();
 
   if (currentTime > parseInt(expirationTimeToken, 10)) {
-    localStorage.clear();
+    localStorage.removeItem("site-token");
+    localStorage.removeItem("site-token-type");
+    localStorage.removeItem("site-token-userID");
+    localStorage.removeItem("site-token-expiration");
   }
+
+  const userConnected = localStorage.getItem("site-token") !== null;
 
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        {" "}
-        <Route path="*" element={<NotFound />} />{" "}
         {/* Catch-all route for 404 */}
+        <Route path="*" element={<NotFound />} />
+        {/* Redirect to 404 if user is connected */}
+        {userConnected && (
+          <Route path="/login" element={<Navigate to="/404" />} />
+        )}
+        {userConnected && (
+          <Route path="/signup" element={<Navigate to="/404" />} />
+        )}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<UserForm />} />
         <Route

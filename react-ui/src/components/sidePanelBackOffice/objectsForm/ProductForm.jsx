@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../utils/api";
-import { useNavigate, useParams } from "react-router-dom";
 import "./Form.css";
 
 const ProductForm = () => {
@@ -13,7 +12,7 @@ const ProductForm = () => {
   const [stockQuantity, setStockQuantity] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [apiError, setApiError] = useState("");
-
+  const [formValid, setFormValid] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,6 @@ const ProductForm = () => {
         .get(`product/${id}`)
         .then((res) => {
           const item = res.data;
-
           setProductName(item.product.productName);
           setCategoryID(item.product.categoryID);
           setDescription(item.product.description);
@@ -40,7 +38,7 @@ const ProductForm = () => {
             } else if (errorResponse.message) {
               setApiError(errorResponse.message);
             } else {
-              setApiError("An error occurred");
+              setApiError(error.response.data);
             }
           } else {
             setApiError("An error occurred");
@@ -48,6 +46,29 @@ const ProductForm = () => {
         });
     }
   }, [id]);
+
+  useEffect(() => {
+    const isUpdateFormValid =
+      id && productName && categoryID && description && price && stockQuantity;
+    const isCreateFormValid =
+      !id &&
+      productName &&
+      categoryID &&
+      description &&
+      price &&
+      stockQuantity &&
+      imageFile;
+
+    setFormValid(isUpdateFormValid || isCreateFormValid);
+  }, [
+    id,
+    productName,
+    categoryID,
+    description,
+    price,
+    stockQuantity,
+    imageFile,
+  ]);
 
   const handelCancel = () => {
     navigate("../product");
@@ -57,7 +78,6 @@ const ProductForm = () => {
     e.preventDefault();
 
     const formData = new FormData();
-
     formData.append("id", id || 0);
     formData.append("productName", productName);
     formData.append("description", description);
@@ -67,10 +87,12 @@ const ProductForm = () => {
     formData.append("imageFile", imageFile);
 
     const verb = id ? "put" : "post";
+    const action = id ? "updated" : "created";
 
     api[verb]("Product", formData)
       .then((res) => {
         navigate("../product");
+        alert(`Product ${action} successfully`);
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -82,7 +104,7 @@ const ProductForm = () => {
           } else if (errorResponse.message) {
             setApiError(errorResponse.message);
           } else {
-            setApiError("An error occurred");
+            setApiError(error.response.data);
           }
         } else {
           setApiError("An error occurred");
@@ -93,7 +115,7 @@ const ProductForm = () => {
   return (
     <>
       <h3>Product Form</h3>
-      <div className="form" onSubmit={handelSubmit}>
+      <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">Product Name</div>
           <input
@@ -152,12 +174,14 @@ const ProductForm = () => {
           )}
         </div>
         <div className="buttonsDiv">
-          <button type="submit" onClick={handelSubmit}>
+          <button type="submit" onClick={handelSubmit} disabled={!formValid}>
             Save
           </button>
-          <button onClick={handelCancel}>Cancel</button>
+          <button type="button" onClick={handelCancel}>
+            Cancel
+          </button>
         </div>
-      </div>
+      </form>
       {apiError && <p className="error">{apiError}</p>}
     </>
   );

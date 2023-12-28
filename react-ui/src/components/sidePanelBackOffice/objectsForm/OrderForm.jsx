@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../utils/api";
-import { useNavigate, useParams } from "react-router-dom";
 import "./Form.css";
 
 const OrderForm = () => {
@@ -11,7 +10,7 @@ const OrderForm = () => {
   const [orderItems, setOrderItems] = useState([]);
   const [itemsMarkedForDeletion, setItemsMarkedForDeletion] = useState([]);
   const [apiError, setApiError] = useState("");
-
+  const [formValid, setFormValid] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +36,7 @@ const OrderForm = () => {
             } else if (errorResponse.message) {
               setApiError(errorResponse.message);
             } else {
-              setApiError("An error occurred");
+              setApiError(error.response.data);
             }
           } else {
             setApiError("An error occurred");
@@ -46,6 +45,19 @@ const OrderForm = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    // Check if the main fields are filled and at least one product is added
+    const isMainFieldsFilled =
+      userID &&
+      orderStatus &&
+      orderItems.length > 0 &&
+      !orderItems.some(
+        (item) => !item.productID || !item.pricePerItem || !item.quantity
+      );
+
+    setFormValid(isMainFieldsFilled);
+  }, [userID, orderStatus, orderItems]);
+
   const handelCancel = () => {
     navigate("../order");
   };
@@ -53,6 +65,12 @@ const OrderForm = () => {
   const handelSubmit = (e) => {
     e.preventDefault();
 
+    if (!formValid) {
+      setApiError("Please fill in all fields and add at least one product.");
+      return;
+    }
+
+    // Continue with the submission logic
     const updatedOrderItems = orderItems.filter(
       (item, index) => !itemsMarkedForDeletion.includes(item.id)
     );
@@ -65,18 +83,18 @@ const OrderForm = () => {
     };
 
     const verb = id ? "put" : "post";
+    const action = id ? "updated" : "created";
 
     if (itemsMarkedForDeletion.length > 0) {
       itemsMarkedForDeletion.forEach((itemID) => {
-        api
-          .delete(`OrderItem/${itemID}`)
-          .catch((ex) => setApiError(ex)); /*Check*/
+        api.delete(`OrderItem/${itemID}`).catch((ex) => setApiError(ex));
       });
     }
 
     api[verb]("order", newItem)
       .then((res) => {
         navigate("../order");
+        alert(`Order ${action} successfully`);
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -88,7 +106,7 @@ const OrderForm = () => {
           } else if (errorResponse.message) {
             setApiError(errorResponse.message);
           } else {
-            setApiError("An error occurred");
+            setApiError(error.response.data);
           }
         } else {
           setApiError("An error occurred");
@@ -130,7 +148,7 @@ const OrderForm = () => {
   return (
     <>
       <h3>Order Form</h3>
-      <div className="form" onSubmit={handelSubmit}>
+      <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">User ID</div>
           <input
@@ -190,19 +208,25 @@ const OrderForm = () => {
                 }}
               />
             </div>
-            <button onClick={() => removeOrderItem(index, item)}>Remove</button>
+            <button type="button" onClick={() => removeOrderItem(index, item)}>
+              Remove
+            </button>
           </div>
         ))}
-        <button onClick={addOrderItem}>Add Product</button>
+        <button type="button" onClick={addOrderItem}>
+          Add Product
+        </button>
 
         <div className="buttonsDiv">
-          <button type="submit" onClick={handelSubmit}>
+          <button type="submit" disabled={!formValid}>
             Save
           </button>
-          <button onClick={handelCancel}>Cancel</button>
+          <button type="button" onClick={handelCancel}>
+            Cancel
+          </button>
         </div>
-      </div>
-      {apiError && <p className="error">{apiError}</p>}{" "}
+      </form>
+      {apiError && <p className="error">{apiError}</p>}
     </>
   );
 };

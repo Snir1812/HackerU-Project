@@ -15,6 +15,7 @@ namespace API.Models.DTO
 		[JsonIgnore]
 		public User? User { get; set; }
 		[Required]
+		[Range(1, 10, ErrorMessage = "Rating must be between 1 and 10")]
 		public int Rating { get; set; }
 		[Required]
 		public string ReviewText { get; set; }

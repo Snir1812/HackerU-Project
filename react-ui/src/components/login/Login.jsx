@@ -1,6 +1,6 @@
 import React from "react";
 import "./Login.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import "../../pages/General.css";
@@ -9,6 +9,7 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [apiError, setApiError] = useState("");
+  const [formValid, setFormValid] = useState(false);
   const nav = useNavigate();
 
   const saveTokenToLocalStorage = (token) => {
@@ -25,8 +26,21 @@ const Login = () => {
     localStorage.setItem("site-token-expiration", expirationTime);
   };
 
+  useEffect(() => {
+    // Check if all required fields are filled
+    const isValid = username !== "" && password !== "";
+
+    setFormValid(isValid);
+  }, [username, password]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Check if the form is valid
+    if (!formValid) {
+      setApiError("Please fill in all fields before submitting.");
+      return;
+    }
 
     const loginData = {
       username,
@@ -39,18 +53,18 @@ const Login = () => {
         if (result.status === 200) {
           saveTokenToLocalStorage(result.data);
 
+          alert("Welcome back");
+
           setApiError("Logged in - success");
 
           window.location.reload();
           window.location.href = "/";
         } else {
-          localStorage.setItem("site-token", "");
+          // localStorage.setItem("site-token", "");
           setApiError(`could not login ${result.status}`);
         }
       })
       .catch((error) => {
-        localStorage.setItem("site-token", "");
-
         if (error.response && error.response.data) {
           const errorResponse = error.response.data;
           if (errorResponse.errors) {
@@ -60,7 +74,7 @@ const Login = () => {
           } else if (errorResponse.message) {
             setApiError(errorResponse.message);
           } else {
-            setApiError("An error occurred");
+            setApiError(error.response.data);
           }
         } else {
           setApiError("An error occurred");
@@ -93,7 +107,7 @@ const Login = () => {
           />
         </div>
         <div className="buttonsDiv">
-          <button type="submit" className="loginButton">
+          <button type="submit" className="loginButton" disabled={!formValid}>
             Login
           </button>
           <button type="button" className="loginButton" onClick={handleSignup}>

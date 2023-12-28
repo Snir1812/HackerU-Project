@@ -55,9 +55,9 @@ namespace API.Controllers
 		[HttpPost]
 		public IActionResult Create(User user)
 		{
-			if (user == null)
+			if (user == null || !ModelState.IsValid)
 			{
-				return BadRequest();
+				return BadRequest(ModelState);
 			}
 
 			var userNameExists = _userRepo.FindByCondition(u => u.UserName == user.UserName).Any();
@@ -81,9 +81,9 @@ namespace API.Controllers
 		[HttpPut]
 		public IActionResult Update(User user)
 		{
-			if (user == null)
+			if (user == null || !ModelState.IsValid)
 			{
-				return BadRequest();
+				return BadRequest(ModelState);
 			}
 
 			var exists = _userRepo.FindByCondition(u => u.ID == user.ID).Any();

@@ -14,6 +14,7 @@ const ProductDetails = () => {
   }
 
   const item = productData.find((item) => item.product.id == productID);
+
   const addToCart = (item, quantity) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -33,6 +34,8 @@ const ProductDetails = () => {
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("Item added to the cart successfully!");
   };
 
   const formatReviewDate = (dateStr) => {

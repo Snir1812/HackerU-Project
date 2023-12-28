@@ -16,13 +16,13 @@ const Cart = () => {
   }, []);
 
   const removeFromCart = (productId) => {
-    const updatedCart = cartData.filter((item) => item.id !== productId);
+    const updatedCart = cartData.filter((item) => item.productID !== productId);
     updateCart(updatedCart);
   };
 
   const updateQuantity = (productId, newQuantity) => {
     const updatedCart = cartData.map((item) => {
-      if (item.id === productId) {
+      if (item.productID === productId) {
         return { ...item, quantity: newQuantity };
       }
       return item;
@@ -43,6 +43,14 @@ const Cart = () => {
       return;
     }
 
+    const isConfirmed = window.confirm(
+      "Are you sure you want to place the order?"
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
+
     const orderItems = cartData.map((item) => item);
 
     const orderData = {
@@ -57,20 +65,13 @@ const Cart = () => {
 
         setCartData([]);
 
+        alert("Order successfully created");
+
         window.location.reload();
       })
       .catch((error) => {
         if (error.response && error.response.data) {
-          const errorResponse = error.response.data;
-          if (errorResponse.errors) {
-            const errorMessages = Object.values(errorResponse.errors);
-            const allErrors = errorMessages.flat();
-            setApiError(allErrors.join(" "));
-          } else if (errorResponse.message) {
-            setApiError(errorResponse.message);
-          } else {
-            setApiError("An error occurred");
-          }
+          setApiError(error.response.data);
         } else {
           setApiError("An error occurred");
         }
@@ -82,29 +83,35 @@ const Cart = () => {
       <h2>Your Cart</h2>
       <div className="cartItemList" key={cartData.length}>
         {cartData.length === 0 ? (
-          <div className="cartItem">Your cart is empty.</div>
+          <div className="cartItem" key={"empty-cart"}>
+            Your cart is empty.
+          </div>
         ) : (
           cartData.map((item) => (
-            <div className="cartItemDiv" key={item.id}>
+            <div className="cartItemDiv" key={item.productID}>
               <span className="cartItem"> {item.productName}</span>
               <div>
                 <span className="cartItem"> {item.pricePerItem}$</span>
                 <button
                   className="quantityButton"
-                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                  onClick={() =>
+                    updateQuantity(item.productID, item.quantity - 1)
+                  }
                 >
                   -
                 </button>
                 <span className="cartItem"> {item.quantity}</span>
                 <button
                   className="quantityButton"
-                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                  onClick={() =>
+                    updateQuantity(item.productID, item.quantity + 1)
+                  }
                 >
                   +
                 </button>
                 <button
                   className="cartRemoveButton"
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => removeFromCart(item.productID)}
                 >
                   <AiOutlineClose />
                 </button>

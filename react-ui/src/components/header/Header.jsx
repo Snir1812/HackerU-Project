@@ -38,7 +38,7 @@ const Header = () => {
       <span className="spacer"></span>
       <NavLink to="/" className="headerLink">
         Home
-      </NavLink>{" "}
+      </NavLink>
       <NavLink to={`/products/all`} className="headerLink" key="">
         All
       </NavLink>

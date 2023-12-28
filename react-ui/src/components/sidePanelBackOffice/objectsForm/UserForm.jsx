@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Form.css";
@@ -16,6 +15,7 @@ const UserForm = () => {
   const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [apiError, setApiError] = useState("");
+  const [formValid, setFormValid] = useState(false);
 
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ const UserForm = () => {
             } else if (errorResponse.message) {
               setApiError(errorResponse.message);
             } else {
-              setApiError("An error occurred");
+              setApiError(error.response.data);
             }
           } else {
             setApiError("An error occurred");
@@ -56,12 +56,32 @@ const UserForm = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    // Check if all required fields are filled
+    const isValid =
+      firstName !== "" &&
+      lastName !== "" &&
+      email !== "" &&
+      userName !== "" &&
+      password !== "" &&
+      address !== "" &&
+      phoneNumber !== "";
+
+    setFormValid(isValid);
+  }, [firstName, lastName, email, userName, password, address, phoneNumber]);
+
   const handelCancel = () => {
     navigate(-1);
   };
 
   const handelSubmit = (e) => {
     e.preventDefault();
+
+    // Check if the form is valid
+    if (!formValid) {
+      setApiError("Please fill in all fields before submitting.");
+      return;
+    }
 
     const typeNumber = parseInt(type, 10);
 
@@ -78,10 +98,12 @@ const UserForm = () => {
     };
 
     const verb = id ? "put" : "post";
+    const action = id ? "updated" : "created";
 
     api[verb]("User", newItem)
       .then((res) => {
         navigate(-1);
+        alert(`User ${action} successfully`);
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -93,7 +115,7 @@ const UserForm = () => {
           } else if (errorResponse.message) {
             setApiError(errorResponse.message);
           } else {
-            setApiError("An error occurred");
+            setApiError(error.response.data);
           }
         } else {
           setApiError("An error occurred");
@@ -109,7 +131,7 @@ const UserForm = () => {
   return (
     <div className="generalPage flex-column">
       <h3>User Form</h3>
-      <div className="form" onSubmit={handelSubmit}>
+      <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
           <div className="formLabel">First Name</div>
           <input
@@ -179,12 +201,14 @@ const UserForm = () => {
           />
         </div>
         <div className="buttonsDiv">
-          <button type="submit" onClick={handelSubmit}>
+          <button type="submit" disabled={!formValid}>
             Save
           </button>
-          <button onClick={handelCancel}>Cancel</button>
+          <button type="button" onClick={handelCancel}>
+            Cancel
+          </button>
         </div>
-      </div>
+      </form>
       {apiError && <p className="error">{apiError}</p>}{" "}
     </div>
   );
