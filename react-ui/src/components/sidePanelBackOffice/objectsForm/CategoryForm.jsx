@@ -98,26 +98,28 @@ const CategoryForm = () => {
       <h3>Category Form</h3>
       <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
-          <div className="formLabel">Name</div>
+          <div>Name</div>
           <input
+            className="formInput"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Description</div>
+          <div>Description</div>
           <input
+            className="formInput"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>{" "}
         <div className="buttonsDiv">
-          <button type="submit" disabled={!formValid}>
+          <button type="submit" className="formButton" disabled={!formValid}>
             Save
           </button>
-          <button type="button" onClick={handelCancel}>
+          <button type="button" className="formButton" onClick={handelCancel}>
             Cancel
           </button>
         </div>

@@ -1,42 +1,92 @@
-.loginForm {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  border: 1px solid black;
-  border-radius: 10px;
-  height: 300px;
-  width: 230px;
-  gap: 0.8rem;
+@media (min-width: 576px) {
+  .loginForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 280px;
+    width: 200px;
+    gap: 0.8rem;
+  }
+  .formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+  }
+  .formInput {
+    height: 20px;
+    width: 120px;
+    border: 1px solid rgba(0, 0, 0, 0.658);
+    border-radius: 10px;
+  }
+  .buttonsDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    width: 45px;
+    font-size: 13px;
+    border: 1px solid rgba(0, 0, 0, 0.658);
+    border-radius: 10px;
+  }
+  .error {
+    text-align: center;
+  }
 }
-.formItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.formInput {
-  height: 25px;
-  width: 140px;
-  border: 1px solid rgba(0, 0, 0, 0.658);
-  border-radius: 10px;
-}
-.buttonsDiv {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-.loginButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 25px;
-  width: 60px;
-  border: 1px solid rgba(0, 0, 0, 0.658);
-  border-radius: 10px;
-}
-.error {
-  text-align: center;
+@media (min-width: 992px) {
+  .loginForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 300px;
+    width: 230px;
+    gap: 0.8rem;
+  }
+  .formItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 16px;
+  }
+  .formInput {
+    height: 25px;
+    width: 140px;
+    border: 1px solid rgba(0, 0, 0, 0.658);
+    border-radius: 10px;
+  }
+  .buttonsDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    width: 60px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.658);
+    border-radius: 10px;
+  }
+  .error {
+    text-align: center;
+  }
 }

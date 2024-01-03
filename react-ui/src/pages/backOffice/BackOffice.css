@@ -1,6 +1,17 @@
-.backOfficeDivision {
-  width: 100%;
-  min-height: 74vh;
-  display: flex;
-  justify-content: center;
+@media (min-width: 576px) {
+  .backOfficeDivision {
+    width: 100%;
+    min-height: 78vh;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 992px) {
+  .backOfficeDivision {
+    width: 100%;
+    min-height: 74vh;
+    display: flex;
+    justify-content: center;
+  }
 }

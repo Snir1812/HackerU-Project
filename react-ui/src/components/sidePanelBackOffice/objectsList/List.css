@@ -1,100 +1,404 @@
-.listPage {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 1rem;
-  padding-bottom: 15px;
+@media (min-width: 576px) {
+  .listPage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 15px;
+  }
+  .list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .newButton {
+    height: 20px;
+    min-width: 100px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(85, 206, 85);
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  .newButtonDiv {
+    text-decoration: none;
+  }
+  .itemListUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 30px;
+    font-size: 11px;
+    background: yellow;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .itemList {
+    width: 40px;
+    height: 20px;
+    font-size: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+  }
+  .itemListButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.3rem;
+    width: 40px;
+    height: 45px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+    border-radius: 10px;
+  }
+  .productImage {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .button {
+    width: 30px;
+    height: 15px;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  .noUnderline {
+    text-decoration: none;
+  }
+  .edit {
+    background-color: yellow;
+  }
+  .delete {
+    background-color: rgb(237, 167, 161);
+  }
+  .edit:hover {
+    background-color: rgba(255, 255, 0, 0.363);
+  }
+  .delete:hover {
+    background-color: rgba(237, 167, 161, 0.676);
+  }
 }
-.list {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+@media (min-width: 768px) {
+  .listPage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 15px;
+  }
+  .list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .newButton {
+    height: 20px;
+    min-width: 100px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(85, 206, 85);
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  .newButtonDiv {
+    text-decoration: none;
+  }
+  .itemListUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 38px;
+    font-size: 14px;
+    background: yellow;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .itemList {
+    width: 60px;
+    height: 25px;
+    font-size: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+  }
+  .itemListButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0.3rem;
+    width: 60px;
+    height: 25px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+    border-radius: 15px;
+  }
+  .productImage {
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .button {
+    width: 25px;
+    height: 15px;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  .noUnderline {
+    text-decoration: none;
+  }
+  .edit {
+    background-color: yellow;
+  }
+  .delete {
+    background-color: rgb(237, 167, 161);
+  }
+  .edit:hover {
+    background-color: rgba(255, 255, 0, 0.363);
+  }
+  .delete:hover {
+    background-color: rgba(237, 167, 161, 0.676);
+  }
 }
-.newButton {
-  height: 20px;
-  min-width: 120px;
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(85, 206, 85);
-  border: 1px solid black;
-  border-radius: 10px;
+@media (min-width: 992px) {
+  .listPage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 15px;
+  }
+  .list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .newButton {
+    height: 20px;
+    min-width: 100px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(85, 206, 85);
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  .newButtonDiv {
+    text-decoration: none;
+  }
+  .itemListUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 40px;
+    font-size: 15px;
+    background: yellow;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .itemList {
+    width: 80px;
+    height: 28px;
+    font-size: 13px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+  }
+  .itemListButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0.3rem;
+    width: 80px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+    border-radius: 15px;
+  }
+  .productImage {
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .button {
+    width: 35px;
+    height: 15px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  .noUnderline {
+    text-decoration: none;
+  }
+  .edit {
+    background-color: yellow;
+  }
+  .delete {
+    background-color: rgb(237, 167, 161);
+  }
+  .edit:hover {
+    background-color: rgba(255, 255, 0, 0.363);
+  }
+  .delete:hover {
+    background-color: rgba(237, 167, 161, 0.676);
+  }
 }
-.newButtonDiv {
-  text-decoration: none;
-}
-.itemListUp {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100px;
-  height: 45px;
-  font-size: 16px;
-  background: yellow;
-  border: 1px solid rgba(0, 0, 0, 0.167);
-}
-
-.itemList {
-  width: 100px;
-  height: 30px;
-  font-size: 14px;
-  border: 1px solid rgba(0, 0, 0, 0.167);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 0 5px;
-  text-align: center;
-}
-.itemListButtons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  width: 100px;
-  height: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.167);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 0 5px;
-  text-align: center;
-  border-radius: 15px;
-}
-.productImage {
-  width: 80px;
-  height: 80px;
-  margin: 0 10px;
-  border: 1px solid rgba(0, 0, 0, 0.167);
-}
-.button {
-  width: 40px;
-  height: 15px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  border: 1px solid black;
-}
-.noUnderline {
-  text-decoration: none;
-}
-.edit {
-  background-color: yellow;
-}
-.delete {
-  background-color: rgb(237, 167, 161);
-}
-.edit:hover {
-  background-color: rgba(255, 255, 0, 0.363);
-}
-.delete:hover {
-  background-color: rgba(237, 167, 161, 0.676);
+@media (min-width: 1200px) {
+  .listPage {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 15px;
+  }
+  .list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .newButton {
+    height: 20px;
+    min-width: 120px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(85, 206, 85);
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+  .newButtonDiv {
+    text-decoration: none;
+  }
+  .itemListUp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 45px;
+    font-size: 16px;
+    background: yellow;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .itemList {
+    width: 90px;
+    height: 30px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+  }
+  .itemListButtons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0.3rem;
+    width: 90px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    text-align: center;
+    border-radius: 15px;
+  }
+  .productImage {
+    width: 90px;
+    height: 90px;
+    border: 1px solid rgba(0, 0, 0, 0.167);
+  }
+  .button {
+    width: 40px;
+    height: 15px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid black;
+  }
+  .noUnderline {
+    text-decoration: none;
+  }
+  .edit {
+    background-color: yellow;
+  }
+  .delete {
+    background-color: rgb(237, 167, 161);
+  }
+  .edit:hover {
+    background-color: rgba(255, 255, 0, 0.363);
+  }
+  .delete:hover {
+    background-color: rgba(237, 167, 161, 0.676);
+  }
 }

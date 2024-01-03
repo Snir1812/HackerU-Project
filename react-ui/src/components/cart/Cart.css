@@ -1,3 +1,23 @@
+@media (min-width: 576px) {
+  .cartItem {
+    min-height: 20px;
+    font-size: 13px;
+    width: 290px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+@media (min-width: 992px) {
+  .cartItem {
+    min-height: 20px;
+    font-size: 15px;
+    width: 290px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
 .cartDiv {
   width: 300px;
   min-height: 100px;
@@ -27,14 +47,7 @@
   flex-direction: column;
   gap: 0;
 }
-.cartItem {
-  min-height: 20px;
-  font-size: 15px;
-  width: 290px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+
 .cartRemoveButton {
   height: 30px;
   width: 30px;

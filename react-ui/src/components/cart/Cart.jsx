@@ -80,7 +80,7 @@ const Cart = () => {
 
   return (
     <div className="cartDiv">
-      <h2>Your Cart</h2>
+      <h3>Your Cart</h3>
       <div className="cartItemList" key={cartData.length}>
         {cartData.length === 0 ? (
           <div className="cartItem" key={"empty-cart"}>

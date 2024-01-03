@@ -33,7 +33,7 @@ const Header = () => {
     <div className="header">
       <NavLink to="/" className="headerLink">
         Snir project
-        <CiShop className="fs-1" />
+        <CiShop className="fs-3" />
       </NavLink>
       <span className="spacer"></span>
       <NavLink to="/" className="headerLink">

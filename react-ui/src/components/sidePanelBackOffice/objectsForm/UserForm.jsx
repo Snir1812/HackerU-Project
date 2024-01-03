@@ -133,16 +133,18 @@ const UserForm = () => {
       <h3>User Form</h3>
       <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
-          <div className="formLabel">First Name</div>
+          <div>First Name</div>
           <input
+            className="formInput"
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Last Name</div>
+          <div>Last Name</div>
           <input
+            className="formInput"
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -150,8 +152,12 @@ const UserForm = () => {
         </div>
         {admin && (
           <div className="formItem">
-            <div className="formLabel">Type</div>
-            <select value={type} onChange={(e) => setType(e.target.value)}>
+            <div>Type</div>
+            <select
+              value={type}
+              className="formInput"
+              onChange={(e) => setType(e.target.value)}
+            >
               {userTypeOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -161,50 +167,55 @@ const UserForm = () => {
           </div>
         )}
         <div className="formItem">
-          <div className="formLabel">Email</div>
+          <div>Email</div>
           <input
+            className="formInput"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">User Name</div>
+          <div>User Name</div>
           <input
+            className="formInput"
             type="text"
             value={userName}
             onChange={(e) => setUserName(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Password</div>
+          <div>Password</div>
           <input
+            className="formInput"
             type="text"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Address</div>
+          <div>Address</div>
           <input
+            className="formInput"
             type="text"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Phone Number</div>
+          <div>Phone Number</div>
           <input
+            className="formInput"
             type="number"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
         </div>
         <div className="buttonsDiv">
-          <button type="submit" disabled={!formValid}>
+          <button type="submit" className="formButton" disabled={!formValid}>
             Save
           </button>
-          <button type="button" onClick={handelCancel}>
+          <button type="button" className="formButton" onClick={handelCancel}>
             Cancel
           </button>
         </div>

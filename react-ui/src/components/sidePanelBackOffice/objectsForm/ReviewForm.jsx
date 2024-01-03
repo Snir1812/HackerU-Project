@@ -114,32 +114,36 @@ const ReviewForm = () => {
       <h3>Review Form</h3>
       <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
-          <div className="formLabel">Product ID</div>
+          <div>Product ID</div>
           <input
+            className="formInput"
             type="number"
             value={productID}
             onChange={(e) => setProductID(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">User ID</div>
+          <div>User ID</div>
           <input
+            className="formInput"
             type="number"
             value={userID}
             onChange={(e) => setUserID(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Review Text</div>
+          <div>Review Text</div>
           <input
+            className="formInput"
             type="text"
             value={reviewText}
             onChange={(e) => setReviewText(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Rating</div>
+          <div>Rating</div>
           <input
+            className="formInput"
             type="number"
             min="1"
             max="10"
@@ -151,10 +155,12 @@ const ReviewForm = () => {
           {ratingError && <p className="error">{ratingError}</p>}
         </div>
         <div className="buttonsDiv">
-          <button type="submit" disabled={!formValid}>
+          <button type="submit" className="formButton" disabled={!formValid}>
             Save
           </button>
-          <button onClick={handelCancel}>Cancel</button>
+          <button onClick={handelCancel} className="formButton">
+            Cancel
+          </button>
         </div>
       </form>
       {apiError && <p className="error">{apiError}</p>}

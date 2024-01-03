@@ -1,72 +1,224 @@
-.sortLabel {
-  height: 3vh;
-  margin-bottom: 2vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-}
-.sortInput {
-  height: 20px;
-  min-width: 100px;
-  border: 1px solid rgb(237, 167, 161);
-  border-radius: 20px;
-  font-size: 13px;
-}
-.cardList {
-  padding: 15px 0 30px 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto;
-  min-height: 69vh;
-  gap: 2rem;
-}
-.cardDiv {
-  width: 160px;
-  height: 255px;
-  gap: 0.2rem;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border: 1px solid rgb(237, 167, 161);
+@media (min-width: 576px) {
+  .sortLabel {
+    height: 3vh;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 12px;
+  }
+  .sortInput {
+    height: 17px;
+    min-width: 90px;
+    border: 1px solid rgb(237, 167, 161);
+    border-radius: 20px;
+    font-size: 11px;
+  }
+  .cardList {
+    padding: 15px 0 30px 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    min-height: 69vh;
+    gap: 1.5rem;
+  }
+  .cardDiv {
+    width: 150px;
+    height: 245px;
+    gap: 0.2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgb(237, 167, 161);
 
-  border-radius: 10px;
-  padding: 0 0 10px 0;
+    border-radius: 10px;
+    padding: 0 0 10px 0;
+  }
+  .cardImage {
+    width: 148px;
+    height: 130px;
+    border-radius: 10px 10px 0 0;
+  }
+  .cardItem {
+    text-align: center;
+    padding: 0 10px;
+    max-width: 160px;
+    font-size: 12px;
+    height: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cardButton {
+    background: rgb(237, 167, 161);
+    width: 80px;
+    height: 20px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+  }
+  .cardButton:hover {
+    background: rgba(237, 167, 161, 0.788);
+    width: 80px;
+    height: 20px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+  }
 }
-.cardImage {
-  width: 158px;
-  height: 140px;
-  border-radius: 10px 10px 0 0;
+@media (min-width: 768px) {
+  .sortLabel {
+    height: 3vh;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    font-size: 12px;
+  }
+  .sortInput {
+    height: 17px;
+    min-width: 90px;
+    border: 1px solid rgb(237, 167, 161);
+    border-radius: 20px;
+    font-size: 11px;
+  }
+  .cardList {
+    padding: 15px 0 30px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    min-height: 69vh;
+    gap: 1.5rem;
+  }
+  .cardDiv {
+    width: 160px;
+    height: 255px;
+    gap: 0.2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgb(237, 167, 161);
+
+    border-radius: 10px;
+    padding: 0 0 10px 0;
+  }
+  .cardImage {
+    width: 158px;
+    height: 140px;
+    border-radius: 10px 10px 0 0;
+  }
+  .cardItem {
+    text-align: center;
+    padding: 0 10px;
+    max-width: 160px;
+    font-size: 15px;
+    height: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cardButton {
+    background: rgb(237, 167, 161);
+    width: 100px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+  }
+  .cardButton:hover {
+    background: rgba(237, 167, 161, 0.788);
+    width: 100px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+  }
 }
-.cardItem {
-  text-align: center;
-  padding: 0 10px;
-  max-width: 160px;
-  font-size: 15px;
-  height: 25px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.cardButton {
-  background: rgb(237, 167, 161);
-  width: 100px;
-  height: 20px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 10px;
-}
-.cardButton:hover {
-  background: rgba(237, 167, 161, 0.788);
-  width: 100px;
-  height: 20px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 10px;
+@media (min-width: 992px) {
+  .sortLabel {
+    height: 3vh;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+  .sortInput {
+    height: 20px;
+    min-width: 100px;
+    border: 1px solid rgb(237, 167, 161);
+    border-radius: 20px;
+    font-size: 13px;
+  }
+  .cardList {
+    padding: 15px 0 30px 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    min-height: 69vh;
+    gap: 2rem;
+  }
+  .cardDiv {
+    width: 160px;
+    height: 255px;
+    gap: 0.2rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgb(237, 167, 161);
+
+    border-radius: 10px;
+    padding: 0 0 10px 0;
+  }
+  .cardImage {
+    width: 158px;
+    height: 140px;
+    border-radius: 10px 10px 0 0;
+  }
+  .cardItem {
+    text-align: center;
+    padding: 0 10px;
+    max-width: 160px;
+    font-size: 15px;
+    height: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cardButton {
+    background: rgb(237, 167, 161);
+    width: 100px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+  }
+  .cardButton:hover {
+    background: rgba(237, 167, 161, 0.788);
+    width: 100px;
+    height: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+  }
 }

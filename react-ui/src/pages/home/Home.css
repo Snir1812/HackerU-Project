@@ -1,9 +1,49 @@
-.homePage {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  gap: 1rem;
-  padding: 0 150px;
-  margin-bottom: 30px;
+@media (min-width: 576px) {
+  .homePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 80px;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .homePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 80px;
+    margin-bottom: 30px;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 992px) {
+  .homePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 100px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .homePage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 150px;
+    margin-bottom: 30px;
+  }
 }

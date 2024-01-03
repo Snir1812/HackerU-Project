@@ -117,47 +117,52 @@ const ProductForm = () => {
       <h3>Product Form</h3>
       <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
-          <div className="formLabel">Product Name</div>
+          <div>Product Name</div>
           <input
+            className="formInput"
             type="text"
             value={productName}
             onChange={(e) => setProductName(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Category ID</div>
+          <div>Category ID</div>
           <input
+            className="formInput"
             type="number"
             value={categoryID}
             onChange={(e) => setCategoryID(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Description</div>
+          <div>Description</div>
           <input
+            className="formInput"
             type="text"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Price</div>
+          <div>Price</div>
           <input
+            className="formInput"
             type="number"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Stock Quantity</div>
+          <div>Stock Quantity</div>
           <input
+            className="formInput"
             type="number"
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Image</div>
+          <div>Image</div>
           <input
             type="file"
             accept=".jpg, .jpeg, .png, .gif"
@@ -174,10 +179,15 @@ const ProductForm = () => {
           )}
         </div>
         <div className="buttonsDiv">
-          <button type="submit" onClick={handelSubmit} disabled={!formValid}>
+          <button
+            type="submit"
+            className="formButton"
+            onClick={handelSubmit}
+            disabled={!formValid}
+          >
             Save
           </button>
-          <button type="button" onClick={handelCancel}>
+          <button type="button" className="formButton" onClick={handelCancel}>
             Cancel
           </button>
         </div>

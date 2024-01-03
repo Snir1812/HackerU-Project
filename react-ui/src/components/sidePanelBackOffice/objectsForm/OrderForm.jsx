@@ -150,16 +150,18 @@ const OrderForm = () => {
       <h3>Order Form</h3>
       <form className="form" onSubmit={handelSubmit}>
         <div className="formItem">
-          <div className="formLabel">User ID</div>
+          <div>User ID</div>
           <input
+            className="formInput"
             type="number"
             value={userID}
             onChange={(e) => setUserID(e.target.value)}
           />
         </div>
         <div className="formItem">
-          <div className="formLabel">Order Status</div>
+          <div>Order Status</div>
           <select
+            className="formInput"
             value={orderStatus}
             onChange={(e) => setOrderStatus(e.target.value)}
           >
@@ -173,8 +175,9 @@ const OrderForm = () => {
         {orderItems.map((item, index) => (
           <div className="orderItem" key={index}>
             <div className="formItem">
-              <div className="formLabel">Product ID</div>
+              <div>Product ID</div>
               <input
+                className="formInput"
                 type="number"
                 value={item.productID}
                 onChange={(e) => {
@@ -185,8 +188,9 @@ const OrderForm = () => {
               />
             </div>
             <div className="formItem">
-              <div className="formLabel">Price Per Item</div>
+              <div>Price Per Item</div>
               <input
+                className="formInput"
                 type="number"
                 value={item.pricePerItem}
                 onChange={(e) => {
@@ -197,8 +201,9 @@ const OrderForm = () => {
               />
             </div>
             <div className="formItem">
-              <div className="formLabel">Quantity</div>
+              <div>Quantity</div>
               <input
+                className="formInput"
                 type="number"
                 value={item.quantity}
                 onChange={(e) => {
@@ -208,20 +213,24 @@ const OrderForm = () => {
                 }}
               />
             </div>
-            <button type="button" onClick={() => removeOrderItem(index, item)}>
+            <button
+              type="button"
+              className="formButton"
+              onClick={() => removeOrderItem(index, item)}
+            >
               Remove
             </button>
           </div>
         ))}
-        <button type="button" onClick={addOrderItem}>
+        <button type="button" className="formButton" onClick={addOrderItem}>
           Add Product
         </button>
 
         <div className="buttonsDiv">
-          <button type="submit" disabled={!formValid}>
+          <button type="submit" className="formButton" disabled={!formValid}>
             Save
           </button>
-          <button type="button" onClick={handelCancel}>
+          <button type="button" className="formButton" onClick={handelCancel}>
             Cancel
           </button>
         </div>
